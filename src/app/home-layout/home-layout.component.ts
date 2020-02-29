@@ -10,13 +10,15 @@ export class HomeLayoutComponent implements OnInit {
   one: boolean;
   two: boolean;
   three: boolean;
-
+  name:string;
   constructor() { }
 
   ngOnInit(): void {
     this.one = true;
     this.two = false;
     this.three = false;
+
+    this.name="Arun";
   }
 
 

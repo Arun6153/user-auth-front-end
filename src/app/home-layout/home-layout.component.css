@@ -7,7 +7,7 @@
     left: 0;
     background-color: #111;
     overflow-x: hidden;
-    transition: 0.5s;
+    transition: 0.3s;
     padding-top: 60px;
   }
   
@@ -54,4 +54,10 @@
   @media screen and (max-height: 450px) {
     .sidebar {padding-top: 15px;}
     .sidebar a {font-size: 18px;}
+  }
+  .name-header{
+    text-transform: capitalize;
+    font-size: larger;
+    font-weight: bolder;
+    font:#141414;
   }

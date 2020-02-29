@@ -1,1 +1,96 @@
-<p>edit-users works!</p>
+<div class="container">
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">USER ID</th>
+      <th scope="col">USER NAME</th>
+      <th scope="col">EMAIL</th>
+      <th scope="col">PHONE NO.</th>
+      <th scope="col">OPERATION</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="tupple-user" *ngFor="let user of fetchedUsers">
+      <td scope="row">{{user.userID}}</td>
+      <td>{{user.userName}}</td>
+      <td>{{user.email}}</td>
+      <td>{{user.phone}}</td>
+      <td><button type="button" data-toggle="modal" data-target="#exampleModal" class="btn btn-success" >EDIT</button></td>
+    </tr>
+  </tbody>
+</table>
+<hr>
+</div>
+
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+    <label for="email">Email address</label>
+    <input required required type="email" class="form-control" placeholder="Email" id="email">
+  </div>
+
+  <div class="form-group">
+    <div class="row">
+        <div class="col">
+            <label for="user-id">User ID</label>
+            <input required type="text" class="form-control" placeholder="User Id" id="user-id">
+        </div>
+        <div class="col">
+            <label for="name">Name</label>
+            <input required type="text" class="form-control" placeholder="Name" id="name">
+        </div>
+    </div>
+    </div>
+  
+  <div class="form-group">
+    <label for="phone">Phone no.</label>
+    <input type="tel" class="form-control" placeholder="Enter your phone no." id="phone">
+  </div>
+
+  <div class="form-group">
+    <label for="password">Password</label>
+    <div class="row">
+    <div class="col">
+      <input required id="password" type="text" class="form-control" placeholder="Password">
+    </div>
+    <div class="col">
+      <input required id="cPassword" type="text" class="form-control" placeholder="Confirm Password">
+    </div>
+  </div>
+  </div>
+    <div class="form-check form-check-inline">
+        <input required class="form-check-input" id="1" type="radio" name="radio-op" value="Read">
+        <label class="form-check-label" for="1">Read</label>
+    </div>
+    <div class="form-check form-check-inline">
+        <input required class="form-check-input" id="2" type="radio" name="radio-op" value="Write">
+        <label class="form-check-label" for="2">Write</label>
+    </div>
+    <div class="form-check form-check-inline">
+        <input required class="form-check-input" id="3" type="radio" name="radio-op" value="Report">
+        <label class="form-check-label" for="3">Report</label>
+    </div>
+    <div class="form-check form-check-inline">
+        <input required class="form-check-input" id="4" type="radio" name="radio-op" value="Report">
+        <label class="form-check-label" for="4">Report</label>
+    </div>
+    <p></p>
+    <button type="submit" class="btn btn-primary btn-block">Submit</button>
+    
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-block" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

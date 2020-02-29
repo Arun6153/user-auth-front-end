@@ -1,1 +1,38 @@
-<p>list-users works!</p>
+<div class="container">
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">USER ID</th>
+      <th scope="col">USER NAME</th>
+      <th scope="col">EMAIL</th>
+      <th scope="col">PHONE NO.</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">
+      <input type="text" class="form-control" placeholder="search userID">
+      </th>
+      <td>
+      <input type="text" class="form-control" placeholder="search user name">
+      </td>
+      <td>
+      <input type="text" class="form-control" placeholder="search email">
+      </td>
+      <td>
+      <input type="text" class="form-control" placeholder="search phone no.">
+      </td>
+    </tr>
+    <tr *ngFor="let user of fetchedUsers">
+      <td scope="row">{{user.userID}}</td>
+      <td>{{user.userName}}</td>
+      <td>{{user.email}}</td>
+      <td>{{user.phone}}</td>
+    </tr>
+  </tbody>
+</table>
+<hr>
+<div class="footer">
+  <button type="button" (click)="exportToCSV()" class="btn btn-dark">EXPORT TO CSV/EXCEL</button>
+</div>
+</div>
