@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute , ParamMap } from '@angular/router';
+import { HomeLayoutComponent } from '../home-layout/home-layout.component';
 
 @Component({
   selector: 'edit-users-component',
@@ -7,9 +9,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EditUsersComponent implements OnInit {
   fetchedUsers: any
-  constructor() { }
-
+  home:HomeLayoutComponent
+  constructor(private route:ActivatedRoute) { }
   ngOnInit(): void {
+    // this.route.paramMap.route="";
+
     this.fetchedUsers = [{
       userID: "124",
       userName: "Arun",

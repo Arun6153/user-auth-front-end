@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute , ParamMap } from '@angular/router';
+import { HomeLayoutComponent } from '../home-layout/home-layout.component';
 
 @Component({
   selector: 'import-data-compoint',
