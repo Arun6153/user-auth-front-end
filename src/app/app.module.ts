@@ -1,12 +1,25 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
+/// ROUTING 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
+import { HomeLayoutComponent } from './home-layout/home-layout.component';
+import { ListUsersComponent } from './list-users/list-users.component';
+import { EditUsersComponent } from './edit-users/edit-users.component';
+import { ImportDataComponent } from './import-data/import-data.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    LoginComponent,
+    RegisterComponent,
+    HomeLayoutComponent,
+    ListUsersComponent,
+    EditUsersComponent,
+    ImportDataComponent
   ],
   imports: [
     BrowserModule,
