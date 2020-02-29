@@ -11,5 +11,8 @@ export class ImportDataComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
+  renderToStore()
+  {
+    
+  }
 }

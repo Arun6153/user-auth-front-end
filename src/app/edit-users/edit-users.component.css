@@ -1,4 +1,8 @@
 .tupple-user:hover{
+    transition: 0.3s;
+}
+.tupple-user:hover{
     background-color:#acacac;
     padding: 2px;
+    transition: 0.3s ease-out;
 }
