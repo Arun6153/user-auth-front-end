@@ -6,7 +6,7 @@ from django.contrib.auth.hashers import make_password, check_password
 import json
 import jwt
 
-
+########### LOGIN AND SIGNUP WITH HASING AND JWT AUTHENTICATION
 @csrf_exempt
 def login(request):
     if request.method == 'POST':
@@ -15,7 +15,7 @@ def login(request):
         password = values['password']
         try:
             user = User.objects.get(email=f'{email}')
-            if user.password == password:
+            if  check_password(password,user.password):
                 payload = {
                     'email': user.email,
                 }
@@ -27,10 +27,12 @@ def login(request):
                     'email': f'{user.email}'
                 }
                 return JsonResponse(data)
+            else:
+                return HttpResponseBadRequest("Password is wrong.")
         except Exception as e:
-            return HttpResponseNotFound("User not found")
+            return HttpResponseNotFound("User does not exists.")
     else:
-        return HttpResponseNotAllowed('<p>Not allowed</p>')
+        return HttpResponseNotAllowed('<p>ERROR 404 - Request Not Allowed</p>')
 
 @csrf_exempt
 def signup(request):
