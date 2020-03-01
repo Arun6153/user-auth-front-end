@@ -20,7 +20,6 @@ export class HomeLayoutComponent implements OnInit {
     this.two = false;
     this.three = false;
     this.name="Arun";
-    
   }
 
 
@@ -29,7 +28,6 @@ export class HomeLayoutComponent implements OnInit {
 
   // CONDITIONAL RENDERING FOR SIDE NAV
   switch(pipe) {
-
     if (pipe == 1) {
       this.one = true; this.two = false; this.three = false;
       this.router.navigate(['list'],{relativeTo:this.route})
