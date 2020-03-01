@@ -5,7 +5,7 @@
     margin: auto;
     padding-top:100px ;
 }
-.div-login-form form{
+.div-login-form .form{
     box-shadow: 0px 0px 5px 1px #444444;
     padding: 20px 20px;
 }

@@ -1,20 +1,20 @@
 <div class="div-login-form">
-<form>
+<div class="form">
   <div class="alert alert-primary center" role="alert">
      LOGIN
   </div>
   <div class="form-group">
     <label for="email">Email address</label>
-    <input required type="email" class="form-control" id="email" aria-describedby="emailHelp">
+    <input required type="email" class="form-control" [(ngModel)]="loginData.email" id="email" aria-describedby="emailHelp">
   </div>
   <div class="form-group">
     <label for="password">Password</label>
-    <input required type="password" class="form-control" id="password">
+    <input required type="password" class="form-control" [(ngModel)]="loginData.password" id="password">
   </div>
   <small id="error" class="form-text center text-muted">welcome to the secure portal.</small>
   <p></p>
-  <button type="submit" class="btn btn-primary btn-block">Submit</button>
+  <button type="submit" class="btn btn-primary btn-block" (click)="verifyData()">Login</button>
   <div class="center"><a  href="" routerLink="register">Not a user? Click here to get registered.</a></div>
 
-</form>
+<div>
 </div>
