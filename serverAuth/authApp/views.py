@@ -78,6 +78,8 @@ def csvExport(request):
 def getUsersList(request):
     if request.method == "GET":
         if request.method == 'GET':
-            val = User.objects.values('name','email','userid','phone')
+            allData = User.objects.all()
+            val = allData.values('name','email','userid','phone','option')
+            enodedPass = allData.values('password')
             return JsonResponse({"data": list(val)})
     return HttpResponseBadRequest('<h3>Not Allowed</h3>')

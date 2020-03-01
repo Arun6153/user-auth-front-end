@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 export class ListService {
 
   constructor(private http: HttpClient) { }
-  list(data): Observable <any> {
-    return this.http.post('http://127.0.0.1:8000/login',data);
+  list(): Observable <any> {
+    return this.http.get('http://127.0.0.1:8000/get-users');
   }
 }

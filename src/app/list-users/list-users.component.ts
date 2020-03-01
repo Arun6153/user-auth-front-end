@@ -13,13 +13,20 @@ export class ListUsersComponent implements OnInit {
   constructor(private list: ListService) { }
 
   ngOnInit(): void {
-    this.fetchedUsers = [{
-      userID: "124",
-      userName: "Arun",
-      email: "any",
-      phone: 454546461
-    }]
+    this.fetchedUsers = [];
+    this.bringAllUsers();
   }
+
+
+  bringAllUsers()
+  {
+    this.list.list().subscribe(
+      (res)=>{
+        this.fetchedUsers = res.data;
+      }
+    )
+  }
+  ///  CSV EXPORT IS WORKING HERE
   exportCSV() {
         let a = document.createElement('a');
         a.href = "http://127.0.0.1:8000/download-csv";

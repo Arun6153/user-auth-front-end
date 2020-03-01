@@ -11,11 +11,11 @@
   </thead>
   <tbody>
     <tr class="tupple-user" *ngFor="let user of fetchedUsers">
-      <td scope="row">{{user.userID}}</td>
-      <td>{{user.userName}}</td>
+      <td scope="row">{{user.userid}}</td>
+      <td>{{user.name}}</td>
       <td>{{user.email}}</td>
       <td>{{user.phone}}</td>
-      <td><button type="button" data-toggle="modal" class="btn btn-success" (click)="placeholderData([user.userID])">EDIT</button></td>
+      <td><button type="button" data-toggle="modal" class="btn btn-success" (click)="placeholderData([user.userid])">EDIT</button></td>
     </tr>
   </tbody>
 </table>

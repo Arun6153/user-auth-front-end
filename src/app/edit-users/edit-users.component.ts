@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute , ParamMap } from '@angular/router';
 import { HomeLayoutComponent } from '../home-layout/home-layout.component';
-
+import { ListService } from '../list-users/list.service';
 
 declare var $: any;
 @Component({
   selector: 'edit-users-component',
   templateUrl: './edit-users.component.html',
-  styleUrls: ['./edit-users.component.css']
+  styleUrls: ['./edit-users.component.css'],
+  providers: [ListService],
 })
 
 export class EditUsersComponent implements OnInit {
@@ -15,7 +16,7 @@ export class EditUsersComponent implements OnInit {
   home:HomeLayoutComponent
   placeholder;
  
-  constructor(private route:ActivatedRoute) { }
+  constructor(private route:ActivatedRoute, private list: ListService) { }
   ngOnInit(): void {
     this.placeholder={
       email:"",
@@ -24,27 +25,32 @@ export class EditUsersComponent implements OnInit {
       phone:"",
       password:"",
       option:"",
-    }    
-    
-    this.fetchedUsers = [
-      { userID: "124", userName: "Arun", email: "any", name:"ArunSAiin", phone: 454546461,password:"arun6153" ,option:"all" },{ userID: "12", userName: "ArunSarun", email: "any", name:"ArunSAiin", phone: 454546461,password:"arun6153" ,option:"all" },{ userID: "14", userName: "Arun", email: "any", name:"ArunSAiin", phone: 454546461,password:"arun6153" ,option:"all" }
-    ]
+    }
+    this.bringAllUsers();
   }
 
+  bringAllUsers()
+  {
+    this.list.list().subscribe(
+      (res)=>{
+        this.fetchedUsers = res.data;
+      }
+    )
+  }
   ////////////  ADD DATA TO PLACEHOLDERs
   placeholderData(userID)
   {
     $("#exampleModal").modal('show');
     console.log(userID);
     this.fetchedUsers.forEach(user => {
-      if(user.userID == userID)
+      if(user.userid == userID)
       {
         this.placeholder={
           email:user.email,
-          userID:user.userID,
+          userID:user.userid,
           name:user.name,
           phone:user.phone,
-          password:user.password,
+          password:"not here yet",
           option:user.option,
         } 
       }
