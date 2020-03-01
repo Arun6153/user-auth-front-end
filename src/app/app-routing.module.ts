@@ -23,7 +23,7 @@ const routes: Routes = [
     path: "home/:path",
     component: HomeLayoutComponent,
     children :[
-      { path:'list', component: ListUsersComponent },
+      { path:'', component: ListUsersComponent },
       { path:'edit', component: EditUsersComponent },
       { path:'import', component: ImportDataComponent },
     ]

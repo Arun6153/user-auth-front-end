@@ -12,7 +12,7 @@ export class RegisterComponent implements OnInit {
   userData;
   cPassword;
   errString;
-  constructor(private register:RegisterService) { }
+  constructor(private register: RegisterService) { }
 
   ngOnInit(): void {
     this.userData = {
@@ -31,25 +31,27 @@ export class RegisterComponent implements OnInit {
   verifyFields() {
     let user = this.userData;
     if ((this.cPassword == user.password && user.password.length > 0)) {
-      if (this.ValidateEmail(user.email) && user.phone.length == 10 && user.option && user.userID) {
-        if (!this.checkPresent(user.email, user.userID)) {
-          this.registerUser();
-        }
-        else {
-          this.errString = "something went wrong."
+      if (user.phone.length == 10 && user.option && user.userID) {
+        if (this.ValidateEmail(user.email)) {
+          if (!this.checkPresent(user.email, user.userID)) {
+            this.registerUser();
+          }
+          else alert("You have already registered with us.")
         }
       }
+      else alert("Fill the empty fieldset correctly.")
     }
+    else alert("Your password's isn't matching.")
   }
 
   // FOR VALIDATION OR SUBMIT DATA
   registerUser() {
     console.log("in register");
     this.register.register(this.userData).subscribe(
-        (response) => {
-          window.location.replace('http://localhost:4200')
-        },
-        error => console.log(error)
+      (response) => {
+        window.location.replace('http://localhost:4200')
+      },
+      error => console.log(error)
     );
   }
 

@@ -21,9 +21,13 @@ export class LoginComponent implements OnInit {
 
   verifyData() {
     let user = this.loginData;
-    if (user.password.length > 0 && this.ValidateEmail(user.email))
+    if (user.password.length > 0)
     {
-      this.loginCheck();
+      if( this.ValidateEmail(user.email) )
+          this.loginCheck();
+    }
+    else{
+      alert("Fill the empty Fieldset.")
     }
   }
   // FOR VALIDATION OR SUBMIT DATA
@@ -39,7 +43,7 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('userToken', JSON.stringify(store));
           window.location.replace('http://localhost:4200/home');
         },
-        error => console.log(error)
+        error => alert(error)
     );
   }
   ValidateEmail(mail) {
