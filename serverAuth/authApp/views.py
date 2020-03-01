@@ -5,6 +5,8 @@ from .models import User
 from django.contrib.auth.hashers import make_password, check_password
 import json
 import jwt
+import csv
+import io
 
 ########### LOGIN AND SIGNUP WITH HASING AND JWT AUTHENTICATION
 @csrf_exempt
@@ -15,7 +17,7 @@ def login(request):
         password = values['password']
         try:
             user = User.objects.get(email=f'{email}')
-            if  check_password(password,user.password):
+            if check_password(password, user.password):
                 payload = {
                     'email': user.email,
                 }
@@ -34,26 +36,42 @@ def login(request):
     else:
         return HttpResponseNotAllowed('<p>ERROR 404 - Request Not Allowed</p>')
 
+
 @csrf_exempt
 def signup(request):
     if request.method == 'POST':
         values = json.loads(request.body.decode('utf-8'))
 
-        name        = values['name']
-        email       = values['email']
-        userid      = values['userID']
-        passRaw     = values['password']
-        phone       = values['phone']
-        option      = values['option']
-        
+        name = values['name']
+        email = values['email']
+        userid = values['userID']
+        passRaw = values['password']
+        phone = values['phone']
+        option = values['option']
+
         passwordEn = make_password(passRaw)
         # passwordEn="pbkdf2_sha256$180000$18b5QY0u3b38$p9C+fAl0jBJMt4VmH60x1jWb4Cj4eOsPo+Gwvxhw8P4="
         # print("Hashed Password:- "+passwordEn)
         # print(check_password(passRaw,passwordEn))
-        newUser = User(name=name, email=email, userid=userid, phone=phone, password=passwordEn, option=option)
+        newUser = User(name=name, email=email, userid=userid,
+                       phone=phone, password=passwordEn, option=option)
         newUser.save()
         return HttpResponse(status=201)
 
     else:
         return HttpResponseNotAllowed('<p>Not allowed</p>')
 ##################################################################################################################
+# CSV STUFF HERE!
+
+
+def csvExport(request):
+    if request.method == "GET":
+        users = User.objects.all()
+        res = HttpResponse(content_type="text/csv")
+        res['Content-Deposition'] = 'attachment; filename="edit_users.csv"'
+        writer = csv.writer(res, delimiter=',')
+        writer.writerow(['Email', 'UserId', 'Name', 'Phone', 'Permission'])
+        for user in users:
+            writer.writerow([user.email, user.userid, user.name, user.phone, user.option])
+        return res
+    return HttpResponseBadRequest("Password is wrong.")
