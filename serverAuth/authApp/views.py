@@ -56,6 +56,4 @@ def signup(request):
 
     else:
         return HttpResponseNotAllowed('<p>Not allowed</p>')
-
-# pbkdf2_sha256$180000$18b5QY0u3b38$p9C+fAl0jBJMt4VmH60x1jWb4Cj4eOsPo+Gwvxhw8P4=
-# pbkdf2_sha256$180000$Ep2wdSi9ldbK$Hk5we+6dY2b4DZJLBauGaYIdUkPR+T5TjBCliuzXom0=
+##################################################################################################################

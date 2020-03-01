@@ -14,7 +14,7 @@ export class EditUsersComponent implements OnInit {
   fetchedUsers: any
   home:HomeLayoutComponent
   placeholder;
-
+ 
   constructor(private route:ActivatedRoute) { }
   ngOnInit(): void {
     this.placeholder={
@@ -25,6 +25,7 @@ export class EditUsersComponent implements OnInit {
       password:"",
       option:"",
     }    
+    
     this.fetchedUsers = [
       { userID: "124", userName: "Arun", email: "any", name:"ArunSAiin", phone: 454546461,password:"arun6153" ,option:"all" },{ userID: "12", userName: "ArunSarun", email: "any", name:"ArunSAiin", phone: 454546461,password:"arun6153" ,option:"all" },{ userID: "14", userName: "Arun", email: "any", name:"ArunSAiin", phone: 454546461,password:"arun6153" ,option:"all" }
     ]
