@@ -62,8 +62,6 @@ def signup(request):
         return HttpResponseNotAllowed('<p>Not allowed</p>')
 ##################################################################################################################
 # CSV STUFF HERE!
-
-
 def csvExport(request):
     if request.method == "GET":
         users = User.objects.all()
@@ -75,3 +73,11 @@ def csvExport(request):
             writer.writerow([user.email, user.userid, user.name, user.phone, user.option])
         return res
     return HttpResponseBadRequest("Password is wrong.")
+
+
+def getUsersList(request):
+    if request.method == "GET":
+        if request.method == 'GET':
+            val = User.objects.values('name','email','userid','phone')
+            return JsonResponse({"data": list(val)})
+    return HttpResponseBadRequest('<h3>Not Allowed</h3>')
