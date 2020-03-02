@@ -16,9 +16,10 @@ export class LoginComponent implements OnInit {
   watchTime: any;
   failureAttempt: boolean;
   timeDI: string;
-
+  disable:boolean
   constructor(private login: LoginService) {
     this.failureAttempt = this.timeData.getBool();
+    this.disable = !this.failureAttempt
     this.timeDI="0 : 0";
     this.nowItsTime();
    }
