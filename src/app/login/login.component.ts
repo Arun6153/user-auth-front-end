@@ -41,7 +41,7 @@ export class LoginComponent implements OnInit {
             email:res.email,
           }
           localStorage.setItem('userToken', JSON.stringify(store));
-          window.location.replace('http://localhost:4200/home');
+          window.location.replace('http://localhost:4200/dashboard/');
         },
         error => alert(error)
     );

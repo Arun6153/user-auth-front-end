@@ -7,24 +7,22 @@ import { ActivatedRoute , Router ,ParamMap} from '@angular/router';
   templateUrl: './home-layout.component.html',
   styleUrls: ['./home-layout.component.css']
 })
+
 export class HomeLayoutComponent implements OnInit {
 
   one: boolean;
   two: boolean;
   three: boolean;
   name:string;
-  constructor(private route:ActivatedRoute,private router:Router) { }
+  constructor(private route:ActivatedRoute, private router:Router) { }
 
   ngOnInit(): void {
     this.one = true;
     this.two = false;
     this.three = false;
     this.name="Arun";
+    this.router.navigate(['home'],{relativeTo:this.route})
   }
-
-
-
-
 
   // CONDITIONAL RENDERING FOR SIDE NAV
   switch(pipe) {
@@ -41,7 +39,8 @@ export class HomeLayoutComponent implements OnInit {
       this.router.navigate(['import'],{relativeTo:this.route})
     }
     else if (pipe == 4) {
-      // local storage work here LOGOUT
+      localStorage.removeItem('tokenUser');
+      window.location.replace('http://127.0.0.1:4200/login');
     }
   }
   openNav() {

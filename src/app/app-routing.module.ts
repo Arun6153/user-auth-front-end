@@ -16,14 +16,15 @@ const routes: Routes = [
     component: RegisterComponent
   },
   {
-    path: "home",
-    component: HomeLayoutComponent
+    path: "dashboard",
+    component: HomeLayoutComponent,
   },
   {
-    path: "home/:path",
+    path: "dashboard/:path",
     component: HomeLayoutComponent,
     children :[
-      { path:'', component: ListUsersComponent },
+      { path:'home', component: ListUsersComponent },
+      { path:'list', component: ListUsersComponent },
       { path:'edit', component: EditUsersComponent },
       { path:'import', component: ImportDataComponent },
     ]
