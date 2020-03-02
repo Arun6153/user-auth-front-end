@@ -40,7 +40,7 @@ export class HomeLayoutComponent implements OnInit {
     }
     else if (pipe == 4) {
       localStorage.removeItem('tokenUser');
-      window.location.replace('http://127.0.0.1:4200/login');
+      window.location.replace('http://127.0.0.1:4200/');
     }
   }
   openNav() {

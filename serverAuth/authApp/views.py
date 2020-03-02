@@ -54,7 +54,7 @@ def signup(request):
         # print("Hashed Password:- "+passwordEn)
         # print(check_password(passRaw,passwordEn))
         newUser = User(name=name, email=email, userid=userid,
-                       phone=phone, password=passwordEn, option=option)
+                       phone=phone, password=passwordEn, optionPerm=option)
         newUser.save()
         return HttpResponse(status=201)
 
@@ -74,12 +74,35 @@ def csvExport(request):
         return res
     return HttpResponseBadRequest("Password is wrong.")
 
+@csrf_exempt
+def csvImport(request):
+    if request.method == 'POST':
+        csv_file = request.FILES['file']
+
+        data_set = csv_file.read().decode('UTF-8')
+        io_string = io.StringIO(data_set)
+        next(io_string)
+        
+        for column in csv.reader(io_string, delimiter=',', quotechar="|"):
+            _, created = User.objects.update_or_create(
+                email = column[0],
+                userid = column[1],
+                name = column[2],
+                phone = column[3],
+                optionPerm = column[4],
+            )
+
+        return HttpResponse(status=201)
+
+    return HttpResponseBadRequest("EITHER FILE is'nt UPLOADING OR REQUEST IS BAD")
+
+
 
 def getUsersList(request):
     if request.method == "GET":
         if request.method == 'GET':
             allData = User.objects.all()
-            val = allData.values('name','email','userid','phone','option')
+            val = allData.values('name','email','userid','phone','optionPerm')
             enodedPass = allData.values('password')
             return JsonResponse({"data": list(val)})
     return HttpResponseBadRequest('<h3>Not Allowed</h3>')

@@ -7,4 +7,4 @@ class User(models.Model):
     email=models.CharField(max_length=30)
     password=models.CharField(max_length=256)
     phone=models.CharField(max_length=10)
-    option=models.CharField(max_length=7,null=True, blank=True)
+    optionPerm=models.CharField(max_length=7,null=True, blank=True)

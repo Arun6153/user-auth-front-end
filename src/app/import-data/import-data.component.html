@@ -4,7 +4,7 @@
     <button class="btn btn-outline-dark" (click)="renderToStore()" type="button">IMPORT CSV</button>
   </div>
   <div class="custom-file">
-    <input type="file" accept="csv/* | xls/*" class="custom-file-input" id="import">
+    <input type="file" class="custom-file-input" (change)="postMethod($event.target.files)" id="csv">
     <label class="custom-file-label" for="import">Choose file</label>
   </div>
 </div>
