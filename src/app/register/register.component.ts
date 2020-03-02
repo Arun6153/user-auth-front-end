@@ -27,21 +27,23 @@ export class RegisterComponent implements OnInit {
   }
 
 
-
+  
   verifyFields() {
     let user = this.userData;
-    if ((this.cPassword == user.password && user.password.length > 0)) {
-      if (user.phone.length == 10 && user.option && user.userID) {
-        if (this.ValidateEmail(user.email)) {
-          if (!this.checkPresent(user.email, user.userID)) {
+    if ( !this.checkPresent(user.email, user.userID)) {
+      if (user.phone.length == 10 || user.phone.length ==0) {
+        if ((this.cPassword == user.password && user.password.length > 0) ) {
+          if (user.option) {
             this.registerUser();
           }
-          else alert("You have already registered with us.")
+          else alert("select any one permission.")
+          // alert("You have already registered with us.")
         }
+        else alert("Your password did'nt matches.")
       }
-      else alert("Fill the empty fieldset correctly.")
+      else alert("Either add phone no or leave it.")
     }
-    else alert("Your password's isn't matching.")
+    else alert("Your email or UserId is incorrect.")
   }
 
   // FOR VALIDATION OR SUBMIT DATA
@@ -57,6 +59,10 @@ export class RegisterComponent implements OnInit {
 
 
   checkPresent(email, userID): boolean {
+    if(this.ValidateEmail(email) && userID!="")
+    {
+
+    }
     return false;
   }
   ValidateEmail(mail) {

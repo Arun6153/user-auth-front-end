@@ -36,56 +36,56 @@
       <div class="modal-body">
         <div class="form-group">
     <label for="email">Email address</label>
-    <input required required type="email" class="form-control" value={{placeholder.email}} id="email">
+    <input required required type="email" class="form-control" [(ngModel)]="placeholder.email" value={{placeholder.email}} id="email">
   </div>
 
   <div class="form-group">
     <div class="row">
         <div class="col">
             <label for="user-id">User ID</label>
-            <input required type="text" class="form-control" value={{placeholder.userID}} id="user-id">
+            <input required type="text" class="form-control" [(ngModel)]="placeholder.userID" value={{placeholder.userID}} id="user-id">
         </div>
         <div class="col">
             <label for="name">Name</label>
-            <input required type="text" class="form-control" value={{placeholder.name}} id="name">
+            <input required type="text" class="form-control" [(ngModel)]="placeholder.name" value={{placeholder.name}} id="name">
         </div>
     </div>
     </div>
   
   <div class="form-group">
     <label for="phone">Phone no.</label>
-    <input type="tel" class="form-control" value={{placeholder.phone}} id="phone">
+    <input type="tel" class="form-control" [(ngModel)]="placeholder.phone" value={{placeholder.phone}} id="phone">
   </div>
 
   <div class="form-group">
     <label for="password">Password</label>
     <div class="row">
     <div class="col">
-      <input required id="password" type="text" class="form-control" value={{placeholder.password}}>
+      <input required id="password" type="text" class="form-control" [(ngModel)]="placeholder.password" value={{placeholder.password}}>
     </div>
     <div class="col">
-      <input required id="cPassword" type="text" class="form-control" value={{placeholder.password}}>
+      <input required id="cPassword" type="text" class="form-control" [(ngModel)]="cPassword" >
     </div>
   </div>
   </div>
     <div class="form-check form-check-inline">
-        <input required class="form-check-input" id="1" type="radio" name="radio-op" value="Read">
+        <input required class="form-check-input" id="1" type="radio" [(ngModel)]="placeholder.option" name="radio-op" value="Read">
         <label class="form-check-label" for="1">Read</label>
     </div>
     <div class="form-check form-check-inline">
-        <input required class="form-check-input" id="2" type="radio" name="radio-op" value="Write">
+        <input required class="form-check-input" id="2" type="radio" [(ngModel)]="placeholder.option" name="radio-op" value="Write">
         <label class="form-check-label" for="2">Write</label>
     </div>
     <div class="form-check form-check-inline">
-        <input required class="form-check-input" id="3" type="radio" name="radio-op" value="Report">
+        <input required class="form-check-input" id="3" type="radio" [(ngModel)]="placeholder.option" name="radio-op" value="Report">
         <label class="form-check-label" for="3">Report</label>
     </div>
     <div class="form-check form-check-inline">
-        <input required class="form-check-input" id="4" type="radio" name="radio-op" value="All">
+        <input required class="form-check-input" id="4" type="radio" [(ngModel)]="placeholder.option" name="radio-op" value="All">
         <label class="form-check-label" for="4">All</label>
     </div>
     <p></p>
-    <button type="submit" class="btn btn-primary btn-block" (click)="submitData()">Submit</button>
+    <button type="submit" class="btn btn-primary btn-block" (click)="verifyFields()">Submit</button>
     
       </div>
       <div class="modal-footer">
