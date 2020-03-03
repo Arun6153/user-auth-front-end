@@ -11,4 +11,10 @@ export class EditUserService {
   edit(data): Observable <any> {
     return this.http.post('http://127.0.0.1:8000/edit-user',data);
   }
+  checkEmail(data): Observable <any> {
+    return this.http.post('http://127.0.0.1:8000/verify-email',data);
+  }
+  checkUserID(data): Observable <any> {
+    return this.http.post('http://127.0.0.1:8000/verify-userID',data);
+  }
 }

@@ -76,29 +76,38 @@ export class EditUsersComponent implements OnInit {
   //////////////////////////////////
   verifyFields() {
     let user = this.placeholder;
-    if ( !this.checkPresent(user.email, user.userID)) {
-      if (user.phone.length == 10 || user.phone.length ==0) {
-        if ((this.cPassword == user.password && user.password.length > 0) ) {
-          if (user.option) {
+    if (!this.checkEmailPresent(user.email) && !this.checkUserIDPresent(user.userID)) {
+      console.log("in phone");
+      if (user.phone.length == 10 || user.phone.length == 0) {
+        if ((this.cPassword == user.password && user.password.length > 0)) {
+          if ( $("input[name='radio-op']:checked").val()) {
             $("#exampleModal").modal('hide');
             this.submitData(this.placeholder);
             this.placeholder={}
           }
           else alert("select any one permission.")
-          // alert("You have already registered with us.")
         }
         else alert("Your password did'nt matches.")
       }
       else alert("Either add phone no or leave it.")
     }
-    else alert("Your email or UserId is incorrect.")
   }
-  checkPresent(email, userID): boolean {
-    if(this.ValidateEmail(email) && userID!="")
-    {
-
+  checkEmailPresent(email): boolean {
+    let invert = false;
+    if (this.ValidateEmail(email)) {
+      this.editUsr.checkEmail({ email: email }).subscribe(
+        (res) => {
+          invert= false;
+        },
+        err => {
+          alert(err.error)
+          invert = true;
+        }
+      )
+      return invert;
     }
-    return false;
+    else alert("Your email field is empty.")
+    return true;
   }
   ValidateEmail(mail) {
     if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail)) {
@@ -106,5 +115,23 @@ export class EditUsersComponent implements OnInit {
     }
     alert("You have entered an invalid email address!")
     return (false)
+  }
+  checkUserIDPresent(userID): boolean {
+    let invert = false;
+    if (userID != "") {
+      this.editUsr.checkUserID({ userID: userID }).subscribe(
+        (res) => {
+          invert = false;
+        },
+        err => {
+          alert(err.error)
+          invert = true;
+        }
+      );
+      console.log()
+      return invert;
+    }
+    else alert("Your UserID field is empty.")
+    return true;
   }
 }
