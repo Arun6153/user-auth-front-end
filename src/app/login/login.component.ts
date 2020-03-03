@@ -83,8 +83,11 @@ export class LoginComponent implements OnInit {
     else {
       this.timeData.setBool(true);
       this.failureAttempt = true;
+      this.disable=!this.failureAttempt;
       this.nowItsTime();
     }
+    if(attempt>3) alert("Login limit is reached.")
+    else 
     alert("Attempt: " + attempt + "  Attempt Left: " + (3 - attempt))
   }
 
@@ -95,47 +98,29 @@ export class LoginComponent implements OnInit {
       console.log("val"+this.failureAttempt);
       return;
     }  
-
-    let time = 0;
     let timeDynamic = this.timeData.getDataTime();
 
     this.watchTime = setInterval(() => {
-      if (time % 1000 == 0) {
-        time=0;
+      // this.timeDI = Math.floor(timeDynamic/60)+" : "+(timeDynamic%60);
+      this.timeDI = this.convert(300-timeDynamic);
+      console.log(this.timeDI);
+      this.timeData.setDatatimes(timeDynamic);
 
-        timeDynamic++;
-        this.timeDI = Math.floor(timeDynamic/60)+" : "+(timeDynamic%60);
-        console.log(this.timeDI);
-        this.timeData.setDatatimes(timeDynamic);
-      }
       if (timeDynamic >= 300) {
         this.storage.setDataAttempts(0);
         this.timeData.setDatatimes(0);
         this.timeData.setBool(false);
         this.failureAttempt = false;
-
         clearInterval(this.watchTime);
       }
-      time++;
-    }, 0);
+      timeDynamic++;
+    },1000);
   }
-
-  convert(sec):number{
-      let minutes = sec/60;
-      return Math.floor(minutes);
+  convert(time):string {
+    let min = Math.floor(time / 60);
+    let sec = time%60;
+    return (min + ' min :' + sec+" sec");
   }
-  // convert(time):string {
-  //   var ms = time;
-  //   var min = ms / 1000 / 60;
-  //   var r = min % 1;
-  //   var sec = Math.floor(r * 60);
-  //   if (sec < 10) {
-  //     min = Math.floor(min);
-  //     return (min + ':' + '0' + sec);
-  //   }
-  //   min = Math.floor(min);
-  //   return (min + ' min :' + sec+" sec");
-  // }
   
   ValidateEmail(mail) {
     if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail)) {
