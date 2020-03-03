@@ -16,17 +16,16 @@ export class LoginComponent implements OnInit {
   watchTime: any;
   failureAttempt: boolean;
   timeDI: string;
-  disable:boolean
+  disable: boolean
   constructor(private login: LoginService) {
-    this.failureAttempt = this.timeData.getBool();
-    this.disable = !this.failureAttempt
-    this.timeDI="0 : 0";
+    this.toggleBool(this.timeData.getBool());
+    this.timeDI = "0 : 0";
     this.nowItsTime();
-   }
+  }
 
   ngOnInit(): void {
 
-   
+
     this.loginData = {
       email: "",
       password: "",
@@ -35,7 +34,6 @@ export class LoginComponent implements OnInit {
 
   verifyData() {
     let user = this.loginData;
-
     if (user.password.length > 0) {
       if (this.ValidateEmail(user.email))
         this.loginCheck();
@@ -54,9 +52,9 @@ export class LoginComponent implements OnInit {
           token: res.token,
           email: res.email,
         }
-        
         this.storage.clearData();
         this.timeData.clearData();
+        this.toggleBool(false);
         localStorage.setItem('userToken', JSON.stringify(store));
         window.location.replace('http://localhost:4200/dashboard/');
       },
@@ -73,55 +71,54 @@ export class LoginComponent implements OnInit {
     attempt++;
     if (attempt < 3) {
       this.storage.setDataAttempts(attempt);
+      alert("Attempt: " + attempt + "  Attempt Left: " + (3 - attempt))
     }
     else if (attempt == 3) {
       this.timeData.setBool(true);
-      this.failureAttempt = true;
-      this.nowItsTime
+      this.toggleBool(true);
+      this.nowItsTime();
       this.storage.setDataAttempts(attempt);
+      alert("Attempt: " + attempt + "  Attempt Left: " + (3 - attempt))
     }
     else {
       this.timeData.setBool(true);
-      this.failureAttempt = true;
-      this.disable=!this.failureAttempt;
+      this.toggleBool(true);
       this.nowItsTime();
     }
-    if(attempt>3) alert("Login limit is reached.")
-    else 
-    alert("Attempt: " + attempt + "  Attempt Left: " + (3 - attempt))
   }
 
   nowItsTime() {
 
-    if(!this.failureAttempt)
-    {
-      console.log("val"+this.failureAttempt);
+    if (!this.failureAttempt)
       return;
-    }  
+
     let timeDynamic = this.timeData.getDataTime();
 
     this.watchTime = setInterval(() => {
-      // this.timeDI = Math.floor(timeDynamic/60)+" : "+(timeDynamic%60);
-      this.timeDI = this.convert(300-timeDynamic);
-      console.log(this.timeDI);
+      this.timeDI = this.convert(300 - timeDynamic);
       this.timeData.setDatatimes(timeDynamic);
 
       if (timeDynamic >= 300) {
         this.storage.setDataAttempts(0);
         this.timeData.setDatatimes(0);
         this.timeData.setBool(false);
-        this.failureAttempt = false;
+        this.toggleBool(false)
         clearInterval(this.watchTime);
       }
       timeDynamic++;
-    },1000);
+    }, 1000);
   }
-  convert(time):string {
+  toggleBool(bool) {
+    console.log(bool);
+    this.failureAttempt = bool;
+    this.disable = !bool;
+  }
+  convert(time): string {
     let min = Math.floor(time / 60);
-    let sec = time%60;
-    return (min + ' min :' + sec+" sec");
+    let sec = time % 60;
+    return (min + ' min :' + sec + " sec");
   }
-  
+
   ValidateEmail(mail) {
     if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail)) {
       return (true)

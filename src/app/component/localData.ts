@@ -2,15 +2,15 @@ export class LocalData {
     constructor() {
         let data = parseInt(localStorage.getItem('attempt'));
         if (!data)
-            localStorage.setItem('attempt', "0")
+            localStorage.setItem('attempt', window.btoa("0"))
     }
     getDataAttempts(): number {
-        let attempt = parseInt(localStorage.getItem('attempt'));
-        console.log(attempt);
+        let str = window.atob(localStorage.getItem('attempt'));
+        let attempt = parseInt(str);
         return attempt;
     }
     setDataAttempts(data) {
-        localStorage.setItem('attempt', data)
+        localStorage.setItem('attempt', window.btoa(data))
     }
     clearData() {
         localStorage.removeItem('attempt');
@@ -21,22 +21,23 @@ export class TimeData {
     constructor() {
         let data = parseInt(localStorage.getItem('timeLeft'));
         if (!data) {
-            localStorage.setItem('timeLeft', "0")
+            localStorage.setItem('timeLeft', window.btoa("0"))
             localStorage.setItem('timeBool',JSON.stringify({bool:false}))
         }
         console.log(data)
     }
     getDataTime(): number {
-        let time = parseInt(localStorage.getItem('timeLeft'));
-        console.log(time);
+        let str = window.atob(localStorage.getItem('timeLeft'));
+        let time = parseInt(str);
         return time;
     }
     setDatatimes(data) {
-        console.log(data);
-        localStorage.setItem('timeLeft', data)
+        localStorage.setItem('timeLeft', window.btoa(data))
     }
     getBool():boolean{
        let bool =  JSON.parse(localStorage.getItem('timeBool'));
+       if(bool == null) return false;
+       
        return bool.bool;
     }
     setBool(bool){
