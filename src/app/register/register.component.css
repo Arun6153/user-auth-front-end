@@ -15,3 +15,25 @@
 .form-control,.alert,.btn{
     border-radius: 0px;
 }
+img{
+    position: fixed;
+    margin-top:15vh ;
+    height: 50vh;
+    left:3%;
+    background-attachment: fixed;
+}
+.form{
+    position: relative;
+    right:-60%;
+    background-color: white;
+    z-index: 2;
+}
+@media only screen and (max-width: 600px) {
+    img{
+       display: none;
+    }
+    .form{
+        right:auto;
+        margin: auto 20px;
+    }
+  }
