@@ -103,7 +103,7 @@ def getUsersList(request):
         if request.method == 'GET':
             allData = User.objects.all()
             val = allData.values('name', 'email', 'userid',
-                                 'phone', 'optionPerm')
+                                 'phone', 'optionPerm', 'id')
             enodedPass = allData.values('password')
             return JsonResponse({"data": list(val)})
     return HttpResponseBadRequest('<h3>Not Allowed</h3>')
@@ -112,25 +112,42 @@ def getUsersList(request):
 @csrf_exempt
 def verifyEmail(request):
     if request.method == 'POST':
-         values = json.loads(request.body.decode('utf-8'))
-         print(values)
-         try:
-             data = User.objects.get(email=values['email'])
-         except Exception as e:
-                return HttpResponse(200)
-         return HttpResponseBadRequest("A user is already registerd with this email id")
+        values = json.loads(request.body.decode('utf-8'))
+        try:
+            data = User.objects.get(email=values['email'])
+        except Exception as e:
+            return HttpResponse(200)
+        return HttpResponseBadRequest("A user is already registerd with this email id")
     else:
         return HttpResponseBadRequest("Request not allowed")
-        
+
+
 @csrf_exempt
 def verifyUserID(request):
     if request.method == 'POST':
-         values = json.loads(request.body.decode('utf-8'))
-         print("Dude its ok")
-         try:
-             data = User.objects.get(userid=values['userID']) 
-         except Exception as e:
-                return HttpResponse(200)
-         return HttpResponseBadRequest("This userID is already taken")
+        values = json.loads(request.body.decode('utf-8'))
+        try:
+            data = User.objects.get(userid=values['userID'])
+        except Exception as e:
+            return HttpResponse(200)
+        return HttpResponseBadRequest("This userID is already taken")
     else:
         return HttpResponseBadRequest("Request not allowed")
+
+
+@csrf_exempt
+def editUser(request):
+    if request.method == "POST":
+        values = json.loads(request.body.decode('utf-8'))
+        try:
+             data = User.objects.get(id=values['id'])
+             data.name = values['name']
+             data.email = values['email']
+             data.userid = values['userID']
+             data.passRaw = values['password']
+             data.phone = values['phone']
+             data.option = values['option']
+             data.save()
+        except Exception as e:
+               return HttpResponseBadRequest("This userID is already taken")
+        return HttpResponse(200)

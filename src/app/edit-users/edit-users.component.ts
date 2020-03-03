@@ -36,6 +36,7 @@ export class EditUsersComponent implements OnInit {
     this.list.list().subscribe(
       (res)=>{
         this.fetchedUsers = res.data;
+        console.log(this.fetchedUsers)
       }
     )
   }
@@ -54,6 +55,7 @@ export class EditUsersComponent implements OnInit {
           phone:user.phone,
           password:"not here yet",
           option:user.option,
+          id:user.id
         } 
       }
     });
@@ -63,6 +65,7 @@ export class EditUsersComponent implements OnInit {
     console.log(object);
     this.editUsr.edit(object).subscribe(
       (res)=>{
+        window.location.href = "http://127.0.0.1:4200/dashboard/home"
         console.log(res);
       },
       err => console.log(err)

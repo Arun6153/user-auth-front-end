@@ -9,4 +9,5 @@ urlpatterns = [
     path('get-users',views.getUsersList),
     path('verify-email',views.verifyEmail),
     path('verify-userID',views.verifyUserID),
+    path('edit-user',views.editUser),
 ]
