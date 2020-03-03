@@ -6,3 +6,12 @@
     padding: 2px;
     transition: 0.3s ease-out;
 }
+.table{
+  box-shadow: 0px 0px 10px 2px #a1a1a1;
+  max-height: 70vh;
+  overflow:auto;
+  margin-top: 70px;
+}
+.form-control,.alert,.btn{
+  border-radius: 0px;
+}

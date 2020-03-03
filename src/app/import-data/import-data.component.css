@@ -9,3 +9,8 @@ input{
 input:hover{
     box-shadow: 0px 0px 10px 1px grey;
 }
+.input-group{
+    margin-top: 70px;
+    box-shadow: 0px 0px 10px 2px #a1a1a1;
+
+}

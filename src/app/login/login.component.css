@@ -12,3 +12,6 @@
 .center{
     text-align: center;
 }
+.form-control,.alert,.btn{
+    border-radius:0px;
+}
