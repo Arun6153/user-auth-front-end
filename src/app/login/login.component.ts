@@ -17,15 +17,12 @@ export class LoginComponent implements OnInit {
   failureAttempt: boolean;
   timeDI: string;
   disable: boolean
-  constructor(private login: LoginService) {
+  constructor(private login: LoginService) {}
+
+  ngOnInit(): void {
     this.toggleBool(this.timeData.getBool());
     this.timeDI = "0 : 0";
     this.nowItsTime();
-  }
-
-  ngOnInit(): void {
-
-
     this.loginData = {
       email: "",
       password: "",

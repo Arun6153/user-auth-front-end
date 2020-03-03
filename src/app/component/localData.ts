@@ -1,6 +1,7 @@
 export class LocalData {
     constructor() {
-        let data = parseInt(localStorage.getItem('attempt'));
+        let str = window.atob(localStorage.getItem('attempt'));
+        let data = parseInt(str);
         if (!data)
             localStorage.setItem('attempt', window.btoa("0"))
     }
@@ -19,7 +20,8 @@ export class LocalData {
 
 export class TimeData {
     constructor() {
-        let data = parseInt(localStorage.getItem('timeLeft'));
+        let str = window.atob(localStorage.getItem('timeLeft'));
+        let data = parseInt(str);
         if (!data) {
             localStorage.setItem('timeLeft', window.btoa("0"))
             localStorage.setItem('timeBool',JSON.stringify({bool:false}))
