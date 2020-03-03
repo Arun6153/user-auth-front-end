@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RegisterService } from './register.service';
 
+declare var $: any;
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -27,25 +28,66 @@ export class RegisterComponent implements OnInit {
   }
 
 
-  
+
   verifyFields() {
     let user = this.userData;
-    if ( !this.checkPresent(user.email, user.userID)) {
-      if (user.phone.length == 10 || user.phone.length ==0) {
-        if ((this.cPassword == user.password && user.password.length > 0) ) {
-          if (user.option) {
+    if (!this.checkEmailPresent(user.email) && !this.checkUserIDPresent(user.userID)) {
+      console.log("in phone");
+      if (user.phone.length == 10 || user.phone.length == 0) {
+        if ((this.cPassword == user.password && user.password.length > 0)) {
+          if ( $("input[name='radio-op']:checked").val()) {
             this.registerUser();
           }
           else alert("select any one permission.")
-          // alert("You have already registered with us.")
         }
         else alert("Your password did'nt matches.")
       }
       else alert("Either add phone no or leave it.")
     }
-    else alert("Your email or UserId is incorrect.")
   }
 
+  checkEmailPresent(email): boolean {
+    let invert = false;
+    if (this.ValidateEmail(email)) {
+      this.register.checkEmail({ email: email }).subscribe(
+        (res) => {
+          invert= false;
+        },
+        err => {
+          alert(err.error)
+          invert = true;
+        }
+      )
+      return invert;
+    }
+    else alert("Your email field is empty.")
+    return true;
+  }
+  ValidateEmail(mail) {
+    if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail)) {
+      return (true)
+    }
+    alert("You have entered an invalid email address!")
+    return (false)
+  }
+  checkUserIDPresent(userID): boolean {
+    let invert = false;
+    if (userID != "") {
+      this.register.checkUserID({ userID: userID }).subscribe(
+        (res) => {
+          invert = false;
+        },
+        err => {
+          alert(err.error)
+          invert = true;
+        }
+      );
+      console.log()
+      return invert;
+    }
+    else alert("Your UserID field is empty.")
+    return true;
+  }
   // FOR VALIDATION OR SUBMIT DATA
   registerUser() {
     console.log("in register");
@@ -55,21 +97,5 @@ export class RegisterComponent implements OnInit {
       },
       error => console.log(error)
     );
-  }
-
-
-  checkPresent(email, userID): boolean {
-    if(this.ValidateEmail(email) && userID!="")
-    {
-
-    }
-    return false;
-  }
-  ValidateEmail(mail) {
-    if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail)) {
-      return (true)
-    }
-    alert("You have entered an invalid email address!")
-    return (false)
   }
 }
