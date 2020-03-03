@@ -53,7 +53,7 @@ export class EditUsersComponent implements OnInit {
           userID:user.userid,
           name:user.name,
           phone:user.phone,
-          password:"not here yet",
+          password:"",
           option:user.option,
           id:user.id
         } 

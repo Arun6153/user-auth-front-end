@@ -70,7 +70,7 @@ def csvExport(request):
         writer.writerow(['Email', 'UserId', 'Name', 'Phone', 'Permission'])
         for user in users:
             writer.writerow(
-                [user.email, user.userid, user.name, user.phone, user.option])
+                [user.email, user.userid, user.name, user.phone, user.optionPerm])
         return res
     return HttpResponseBadRequest("Password is wrong.")
 
