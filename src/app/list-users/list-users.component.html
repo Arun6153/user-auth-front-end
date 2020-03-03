@@ -1,28 +1,16 @@
 <div class="container">
-<table class="table">
+<input id="myInput" style="margin-top:50px" (keyup)="myFunction($event)" type="text" class="form-control" placeholder="Search text here..." >
+<p></p>
+<table class="table" id="myTable">
   <thead class="thead-dark">
     <tr>
-      <th scope="col">USER ID</th>
-      <th scope="col">USER NAME</th>
-      <th scope="col">EMAIL</th>
-      <th scope="col">PHONE NO.</th>
+      <th (click)="sortTable(0)" scope="col">USER ID</th>
+      <th (click)="sortTable(1)" scope="col">USER NAME</th>
+      <th (click)="sortTable(2)" scope="col">EMAIL</th>
+      <th (click)="sortTable(3)" scope="col">PHONE NO.</th>
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <th scope="row">
-      <input type="text" class="form-control" placeholder="search userID">
-      </th>
-      <td>
-      <input type="text" class="form-control" placeholder="search user name">
-      </td>
-      <td>
-      <input type="text" class="form-control" placeholder="search email">
-      </td>
-      <td>
-      <input type="text" class="form-control" placeholder="search phone no.">
-      </td>
-    </tr>
     <tr *ngFor="let user of fetchedUsers">
       <td scope="row">{{user.userid}}</td>
       <td>{{user.name}}</td>
