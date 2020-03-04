@@ -67,13 +67,12 @@ def csvExport(request):
         res = HttpResponse(content_type="text/csv")
         res['Content-Deposition'] = 'attachment; filename="edit_users.csv"'
         writer = csv.writer(res, delimiter=',')
-        writer.writerow(['Email', 'UserId', 'Name', 'Phone', 'Permission'])
+        writer.writerow(['ID', 'Email', 'UserId', 'Name', 'Phone', 'Permission'])
         for user in users:
             writer.writerow(
-                [user.email, user.userid, user.name, user.phone, user.optionPerm])
+                [user.id, user.email, user.userid, user.name, user.phone, user.optionPerm])
         return res
     return HttpResponseBadRequest("Password is wrong.")
-
 
 @csrf_exempt
 def csvImport(request):
@@ -85,18 +84,17 @@ def csvImport(request):
         next(io_string)
 
         for column in csv.reader(io_string, delimiter=',', quotechar="|"):
-            _, created = User.objects.update_or_create(
-                email=column[0],
-                userid=column[1],
-                name=column[2],
-                phone=column[3],
-                optionPerm=column[4],
-            )
-
+             data = User.objects.get(id=column[0])
+             data.email = column[1]
+             data.userid = column[2]
+             data.name = column[3]
+             data.phone = column[4]
+             data.optionPerm = column[5]
+             data.save()
         return HttpResponse(status=201)
 
     return HttpResponseBadRequest("EITHER FILE is'nt UPLOADING OR REQUEST IS BAD")
-
+###################################################################################################
 
 def getUsersList(request):
     if request.method == "GET":

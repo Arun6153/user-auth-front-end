@@ -1,10 +1,15 @@
 <div class="container">
-<div class="input-group mb-3">
-  <div class="input-group-prepend">
-    <button class="btn btn-outline-dark" (click)="renderToStore()" type="button">IMPORT CSV</button>
-  </div>
-  <div class="custom-file">
-    <input type="file" class="custom-file-input" (change)="postMethod($event.target.files)" id="csv">
-    <label class="custom-file-label" for="csv">Choose file</label>
+  <div class="fixed-both">
+      <div class="input-group p-3">
+        <div class="input-group-prepend">
+          <button class="btn btn-outline-dark" (click)="renderToStore()" type="button">IMPORT CSV</button>
+        </div>
+        <div class="custom-file">
+          <input type="file" class="custom-file-input" (change)="postMethod($event.target.files)" id="csv">
+          <label class="custom-file-label" for="csv">Choose file</label>
+        </div>
+      </div>
+  <div>
+  <img alt="upload" src="../../assets/upload.svg">
   </div>
 </div>
