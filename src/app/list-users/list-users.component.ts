@@ -11,10 +11,11 @@ export class ListUsersComponent implements OnInit {
 
   fetchedUsers: any
   constructor(private list: ListService) { }
-
+  alert:boolean;
   ngOnInit(): void {
     this.fetchedUsers = [];
     this.bringAllUsers();
+    this.alert = false;
   }
 
   myFunction(event) {
@@ -100,6 +101,7 @@ export class ListUsersComponent implements OnInit {
 
   ///  CSV EXPORT IS WORKING HERE
   exportCSV() {
+    this.alert = true;
     let a = document.createElement('a');
     a.href = "http://127.0.0.1:8000/download-csv";
     a.target = '_blank';

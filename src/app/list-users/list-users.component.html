@@ -21,6 +21,11 @@
 </table>
 <hr>
 <div class="footer">
-  <button type="button" (click)="exportCSV()" class="btn btn-dark">EXPORT / DOWNLOAD CSV</button>
+  <button type="button" (click)="exportCSV()" class="btn btn-dark"
+  data-toggle="tooltip" data-placement="bottom" title="While updating data don't touch ID column, unless it will never gonna reflect changes to DataBase.">EXPORT / DOWNLOAD CSV</button>
+  <p></p>
+  <div *ngIf="alert" class="alert alert-warning" role="alert">
+          While updating data don't touch ID column, unless it will become impossible to reflect changes in Database for good.
+</div>
 </div>
 </div>
