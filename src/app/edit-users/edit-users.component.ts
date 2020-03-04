@@ -12,21 +12,16 @@ declare var $: any;
 })
 
 export class EditUsersComponent implements OnInit {
+  // GLOBAL VARIABLES
   fetchedUsers: any
   home:HomeLayoutComponent
-  placeholder;
-  cPassword;
+  placeholder: any;
+  cPassword: any;
  
   constructor(private editUsr:EditUserService, private list: ListService, ) { }
+
   ngOnInit(): void {
-    this.placeholder={
-      email:"",
-      userID:"",
-      name:"",
-      phone:"",
-      password:"",
-      option:"",
-    }
+    this.placeholder={ email:"", userID:"", name:"", phone:"", password:"", option:"" }
     this.cPassword="";
     this.bringAllUsers();
   }
@@ -40,26 +35,21 @@ export class EditUsersComponent implements OnInit {
       }
     )
   }
-  ////////////  ADD DATA TO PLACEHOLDERs
+
   placeholderData(userID)
   {
     $("#exampleModal").modal('show');
     console.log(userID);
+    // ASSIGNING FETCHED DATA TO PLACEHOLDER
     this.fetchedUsers.forEach(user => {
       if(user.userid == userID)
       {
-        this.placeholder={
-          email:user.email,
-          userID:user.userid,
-          name:user.name,
-          phone:user.phone,
-          password:"",
-          option:user.option,
-          id:user.id
-        } 
+        this.placeholder={ email:user.email, userID:user.userid, name:user.name, phone:user.phone, password:"", option:user.option, id:user.id } 
       }
     });
   }
+
+  // DATA SUBMITTED TO THE DATABASE
   submitData(object)
   {
     console.log(object);
@@ -71,12 +61,16 @@ export class EditUsersComponent implements OnInit {
       err => console.log(err)
     )
   }
+
+  // CLEARING DATA FROM THE FILDS OF THE OPENED MODEL AFTER DISMISSING
   clearPlaceHolder()
   {
     this.placeholder={}
     $("#exampleModal").modal('hide');
   }
-  //////////////////////////////////
+
+
+  // VERIFICATION FOR ALL THE FIELD SET
   verifyFields() {
     let user = this.placeholder;
     if (!this.checkEmailPresent(user.email) && !this.checkUserIDPresent(user.userID)) {
@@ -95,6 +89,8 @@ export class EditUsersComponent implements OnInit {
       else alert("Either add phone no or leave it.")
     }
   }
+
+  // CHECKING IF EMAIL IS PRESENT OR NOT
   checkEmailPresent(email): boolean {
     let invert = false;
     if (this.ValidateEmail(email)) {
@@ -112,6 +108,8 @@ export class EditUsersComponent implements OnInit {
     else alert("Your email field is empty.")
     return true;
   }
+
+  // CHECKING IF EMAIL CONTAINS THE @ AND . IN STRING
   ValidateEmail(mail) {
     if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail)) {
       return (true)

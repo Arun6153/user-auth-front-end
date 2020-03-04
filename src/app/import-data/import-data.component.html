@@ -2,7 +2,9 @@
   <div [ngClass]="{'alert alert-danger':danger, 'alert alert-success':success}" role="alert">
     {{errString}}
   </div>
-
+  <div *ngIf="isAdded" class="alert alert-info" role="alert">
+        <strong>✔ File ready to upload : </strong><a style="text-transform:capitalize">{{fileName}}</a>
+  </div>
   <div class="fixed-both">
       <div class="input-group p-3">
         <div class="input-group-prepend">

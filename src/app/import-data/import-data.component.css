@@ -25,3 +25,8 @@ img{
     margin: auto;
     position: relative;
 }
+.alert-info{
+    position: relative;
+    margin: auto;
+    width:600px;
+}

@@ -9,11 +9,12 @@ import { ActivatedRoute , Router ,ParamMap} from '@angular/router';
 })
 
 export class HomeLayoutComponent implements OnInit {
-
+  // GLOBAL VARIABLE
   one: boolean;
   two: boolean;
   three: boolean;
   name:string;
+
   constructor(private route:ActivatedRoute, private router:Router) { }
 
   ngOnInit(): void {
@@ -39,10 +40,13 @@ export class HomeLayoutComponent implements OnInit {
       this.router.navigate(['import'],{relativeTo:this.route})
     }
     else if (pipe == 4) {
+      // LOGOUT
       localStorage.removeItem('tokenUser');
       window.location.replace('http://127.0.0.1:4200/');
     }
   }
+
+  // FUNCTIONS CONTROLING OPEN & CLOSING OF SIDENAV
   openNav() {
     document.getElementById("mySidebar").style.width = "250px";
     document.getElementById("main").style.marginLeft = "250px";
