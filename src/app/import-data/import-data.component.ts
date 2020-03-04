@@ -43,10 +43,14 @@ export class ImportDataComponent implements OnInit {
         },
         err =>
         {
+          if(err.status==500)
+          {
+            document.getElementsByTagName("body")[0].innerHTML = "<h1>ERROR 500 - False Token</h1>";
+          }
           this.errString="Server is'nt reponding while reflecting changes."
           this.success=false;
           this.danger=true;
-          console.log(err);
+          console.log(err.error);
         } 
 
       )

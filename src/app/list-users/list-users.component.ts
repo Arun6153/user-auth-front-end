@@ -94,6 +94,9 @@ export class ListUsersComponent implements OnInit {
     this.list.list().subscribe(
       (res) => {
         this.fetchedUsers = res.data;
+      },
+      (err)=>{
+          document.getElementsByTagName("body")[0].innerHTML = "<h1>ERROR 500 - False Token</h1>";
       }
     )
   }

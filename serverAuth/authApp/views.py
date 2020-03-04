@@ -8,6 +8,8 @@ import jwt
 import csv
 import io
 
+from .verifyJWT import checkJwt
+
 ########### LOGIN AND SIGNUP WITH HASING AND JWT AUTHENTICATION
 @csrf_exempt
 def login(request):
@@ -77,33 +79,44 @@ def csvExport(request):
 @csrf_exempt
 def csvImport(request):
     if request.method == 'POST':
-        csv_file = request.FILES['file']
+        try:
+            token = request.headers['Authorization'].split("'")
+            email = checkJwt(token[1])
+        
+            csv_file = request.FILES['file']
 
-        data_set = csv_file.read().decode('UTF-8')
-        io_string = io.StringIO(data_set)
-        next(io_string)
+            data_set = csv_file.read().decode('UTF-8')
+            io_string = io.StringIO(data_set)
+            next(io_string)
 
-        for column in csv.reader(io_string, delimiter=',', quotechar="|"):
-             data = User.objects.get(id=column[0])
-             data.email = column[1]
-             data.userid = column[2]
-             data.name = column[3]
-             data.phone = column[4]
-             data.optionPerm = column[5]
-             data.save()
-        return HttpResponse(status=201)
-
+            for column in csv.reader(io_string, delimiter=',', quotechar="|"):
+                 data = User.objects.get(id=column[0])
+                 data.email = column[1]
+                 data.userid = column[2]
+                 data.name = column[3]
+                 data.phone = column[4]
+                 data.optionPerm = column[5]
+                 data.save()
+            return HttpResponse(status=201)
+        except Exception as e:
+            print(e)
+            return HttpResponseServerError("Server error")
     return HttpResponseBadRequest("EITHER FILE is'nt UPLOADING OR REQUEST IS BAD")
 ###################################################################################################
 
 def getUsersList(request):
     if request.method == "GET":
-        if request.method == 'GET':
+        try:
+            token = request.headers['Authorization'].split("'")
+            email = checkJwt(token[1])
             allData = User.objects.all()
             val = allData.values('name', 'email', 'userid',
                                  'phone', 'optionPerm', 'id')
             enodedPass = allData.values('password')
             return JsonResponse({"data": list(val)})
+        except Exception as e:
+            print(e)
+            return HttpResponseServerError("Server error")
     return HttpResponseBadRequest('<h3>Not Allowed</h3>')
 
 
