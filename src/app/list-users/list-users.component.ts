@@ -36,13 +36,6 @@ export class ListUsersComponent implements OnInit {
     this.checkPermission();
   }
 
-
-
-
-
-
-
-
   submitData() {
     console.log(this.placeholder);
     this.checkEmailPresent(this.placeholder.email)
@@ -78,7 +71,6 @@ export class ListUsersComponent implements OnInit {
 
   }
   checkUserIDPresent(userID) {
-    let invert = false;
     this.list.checkUserID({ "userID": userID, "id": this.placeholder.id }).subscribe(
       (res) => {
         this.data.userid = true;
@@ -189,6 +181,8 @@ export class ListUsersComponent implements OnInit {
     this.list.list().subscribe(
       (res) => {
         this.fetchedUsers = res.data;
+       
+        
       },
       (err) => {
         document.getElementsByTagName("body")[0].innerHTML = "<h1>ERROR 500 - False Token</h1>";
@@ -202,7 +196,7 @@ export class ListUsersComponent implements OnInit {
     // ASSIGNING FETCHED DATA TO PLACEHOLDER
     this.fetchedUsers.forEach(user => {
       if (user.userid == userID) {
-        this.placeholder = { email: user.email, userID: user.userid, name: user.name, phone: user.phone, option: user.option, id: user.id }
+        this.placeholder={ email:user.email, userID:user.userid, name:user.name, phone:user.phone, option:user.permission, id:user.id }
       }
     });
   }

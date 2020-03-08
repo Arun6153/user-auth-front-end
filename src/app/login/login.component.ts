@@ -55,7 +55,9 @@ export class LoginComponent implements OnInit {
         this.timeData.clearData();
         this.toggleBool(false);
         localStorage.setItem("userToken", JSON.stringify(store));
-        window.location.replace('http://localhost:4200/dashboard/');
+        setTimeout(open => {
+          window.location.replace('http://localhost:4200/dashboard/');
+        },500)
       },
       (error) => {
         this.updateAndAlert();

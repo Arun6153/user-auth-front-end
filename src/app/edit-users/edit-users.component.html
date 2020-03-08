@@ -9,7 +9,7 @@
   </div>
 
   <div class="form-group">
-    <label for="email">Email address</label>
+    <label for="email">Email Address</label>
     <input required type="email" name="email" class="form-control" [(ngModel)]="placeholder.email" placeholder="Email" id="email">
   </div>
 
@@ -32,13 +32,13 @@
   </div>
 
   <div class="form-group">
-    <label for="password">Password</label>
+    <label for="password">New Password</label>
     <div class="row">
     <div class="col">
-      <input required id="password" name="password" type="password" class="form-control" [(ngModel)]="placeholder.password" placeholder="Password">
+      <input id="password" name="password" min="4" max="16" type="password" class="form-control" [(ngModel)]="placeholder.password" placeholder="Password">
     </div>
     <div class="col">
-      <input required id="cPassword" name="cpassword" type="password" class="form-control" [(ngModel)]="cPassword" placeholder="Confirm Password">
+      <input id="cPassword" name="cpassword" type="password" class="form-control" [(ngModel)]="cPassword" placeholder="Confirm Password">
     </div>
   </div>
   </div>

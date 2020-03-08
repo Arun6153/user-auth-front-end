@@ -166,10 +166,10 @@ def verifyUserID(request):
             print(userid.userid+"    old")
             print(values["userID"]+"    new")
             data = User.objects.get(userid=values['userID'])
-            
+
         except Exception as e:
             return HttpResponse(200)
-        
+
         return HttpResponseBadRequest("This userID is already taken")
     else:
         return HttpResponseBadRequest("Request not allowed")
@@ -190,3 +190,46 @@ def editUser(request):
         except Exception as e:
             return HttpResponseBadRequest("This userID is already taken")
         return HttpResponse(200)
+    return HttpResponseBadRequest("Request not allowed")
+
+
+@csrf_exempt
+def sendUser(request):
+    if request.method == 'GET':
+        try:
+            token = request.headers['Authorization'].split("'")
+            email = checkJwt(token[1])
+            user = User.objects.get(email=email)
+            return JsonResponse({'data': {
+                "name": user.name, "email": user.email, "phone": user.phone, "permission": user.optionPerm, "userid": user.userid, "id": user.id
+            }})
+        except Exception as e:
+            return HttpResponseBadRequest("didnt get user.")
+    else:
+        return HttpResponseBadRequest("Request not allowed")
+
+
+@csrf_exempt
+def updateLogged(request):
+    if request.method == 'POST':
+        values = json.loads(request.body.decode('utf-8'))
+        id = values['id']
+        passRaw = values['password']
+        try:
+            user = User.objects.get(id=f'{id}')
+            print(user)
+            if not passRaw:
+                passRaw = make_password(passRaw)
+                user.password = passRaw
+            user.name = values['name']
+            user.email = values['email']
+            user.userid = values['userID']
+            user.phone = values['phone']
+            user.optionPerm = values['option']
+            user.save()
+
+            return HttpResponse(200)
+        except Exception as e:
+            print("exception")
+            return HttpResponseBadRequest("Something went wrong.")
+    return HttpResponseNotAllowed("Request not allowed to this server.")

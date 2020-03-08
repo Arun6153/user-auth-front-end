@@ -63,4 +63,8 @@ export class User{
     {
         return this.data.name;
     }
+    email():string
+    {
+        return this.data.email;
+    }
 }

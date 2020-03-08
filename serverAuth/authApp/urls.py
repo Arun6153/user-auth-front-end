@@ -10,4 +10,6 @@ urlpatterns = [
     path('verify-email',views.verifyEmail),
     path('verify-userID',views.verifyUserID),
     path('edit-user',views.editUser),
+    path('user',views.sendUser),
+    path('update-logged-user',views.updateLogged),
 ]

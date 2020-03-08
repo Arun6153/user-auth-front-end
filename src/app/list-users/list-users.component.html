@@ -53,33 +53,32 @@
 
         <div class="form-group">
                 <div class="row">
-                                <div class="col">
-                                                <label for="user-id">User ID</label>
-                                                <input name="userid" required type="text" class="form-control" [(ngModel)]="placeholder.userID" value={{placeholder.userID}} id="user-id">
-                                </div>
-                                <div class="col">
-                                                <label for="name">Name</label>
-                                                <input name="name" required type="text" class="form-control" [(ngModel)]="placeholder.name" value={{placeholder.name}} id="name">
-                                </div>
+                  <div class="col">
+                    <label for="user-id">User ID</label>
+                    <input name="userid" required type="text" class="form-control" [(ngModel)]="placeholder.userID" value={{placeholder.userID}} id="user-id">
                 </div>
+                <div class="col">
+                  <label for="name">Name</label>
+                  <input name="name" required type="text" class="form-control" [(ngModel)]="placeholder.name" value={{placeholder.name}} id="name">
                 </div>
-
-        <div class="form-group">
-                <label for="phone">Phone no.</label>
-                <input name="phone" type="tel" class="form-control" [(ngModel)]="placeholder.phone" value={{placeholder.phone}} id="phone">
-        </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone no.</label>
+                    <input name="phone" type="tel" class="form-control" [(ngModel)]="placeholder.phone" value={{placeholder.phone}} id="phone">
+                </div>
 
                 <div class="form-check form-check-inline">
                     <input required class="form-check-input" id="1" type="radio" [(ngModel)]="placeholder.option" name="radio-op" value="Read">
                     <label class="form-check-label" for="1">Read</label>
                 </div>
                 <div class="form-check form-check-inline">
-                                <input checked required class="form-check-input" id="2" type="radio" [(ngModel)]="placeholder.option" name="radio-op" value="Normal">
-                                <label class="form-check-label" for="2">Normal</label>
+                    <input required class="form-check-input" id="2" type="radio" [(ngModel)]="placeholder.option" name="radio-op" value="Normal">
+                    <label class="form-check-label" for="2">Normal</label>
                 </div>
                 <div class="form-check form-check-inline">
-                                <input required class="form-check-input" id="3" type="radio" [(ngModel)]="placeholder.option" name="radio-op" value="Sudo-User">
-                                <label class="form-check-label" for="3">Sudo-User</label>
+                    <input required class="form-check-input" id="3" type="radio" [(ngModel)]="placeholder.option" name="radio-op" value="Sudo-User">
+                    <label class="form-check-label" for="3">Sudo-User</label>
                 </div>
                 <p></p>
                 <button type="button" [disabled]="!EditUserFromUsers.valid" (click)="submitData()" class="btn btn-primary btn-block" >SAVE DETAILS</button>
