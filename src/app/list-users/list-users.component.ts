@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ListService } from './list.service';
+import { User } from '../component/localData';
 
+declare var $: any;
 @Component({
   selector: 'list-users-component',
   templateUrl: './list-users.component.html',
@@ -10,14 +12,105 @@ import { ListService } from './list.service';
 export class ListUsersComponent implements OnInit {
 
   fetchedUsers: any
+  private user: User;
+  alert: boolean;
+  perm: any
+  placeholder: any;
+  data: any;
   constructor(private list: ListService) { }
-  alert:boolean;
+
   ngOnInit(): void {
+    this.placeholder = { email: "", userID: "", name: "", phone: "", option: "" }
     this.fetchedUsers = [];
     this.bringAllUsers();
     this.alert = false;
+    this.perm = {
+      superUser: false,
+      normal: false,
+      read: false,
+    }
+    this.data = {
+      email: null,
+      userid: null,
+    }
+    this.checkPermission();
   }
 
+
+
+
+
+
+
+
+  submitData() {
+    console.log(this.placeholder);
+    this.checkEmailPresent(this.placeholder.email)
+    this.checkUserIDPresent(this.placeholder.userID)
+    setTimeout(cal => {
+      if (this.data.email) {
+        if (this.data.userid) {
+          this.list.edit(this.placeholder).subscribe(
+            (res) => {
+              this.clearPlaceHolder();
+              this.bringAllUsers();
+              console.log(res);
+            },
+            err => console.log(err)
+          )
+        }
+      }
+    }, 1000)
+
+  }
+
+  /// Email and UserId checks
+  checkEmailPresent(email) {
+    this.list.checkEmail({ "email": email, "id": this.placeholder.id }).subscribe(
+      (res) => {
+        this.data.email = true;
+      },
+      err => {
+        alert(err.error)
+        this.data.email = false;
+      }
+    )
+
+  }
+  checkUserIDPresent(userID) {
+    let invert = false;
+    this.list.checkUserID({ "userID": userID, "id": this.placeholder.id }).subscribe(
+      (res) => {
+        this.data.userid = true;
+      },
+      err => {
+        alert(err.error)
+        this.data.userid = false;
+      }
+    );
+  }
+  /// checking permission of logged user
+  checkPermission() {
+
+    this.user = new User()
+    let perm = this.user.perm();
+    if (perm === "Sudo-User") {
+      this.perm.superUser = true;
+      this.perm.normal = false;
+      this.perm.read = false;
+    }
+    else if (perm === "Normal") {
+      this.perm.superUser = false;
+      this.perm.normal = false;
+      this.perm.read = false;
+    }
+    else {
+      this.perm.superUser = false;
+      this.perm.normal = false;
+      this.perm.read = true;
+    }
+  }
+  /// searching table contents
   myFunction(event) {
     let input, filter, table, tr, td1, td2, td3, td4, i, txtValue1, txtValue2, txtValue3, txtValue4;
 
@@ -27,10 +120,10 @@ export class ListUsersComponent implements OnInit {
     tr = table.getElementsByTagName("tr");
 
     for (i = 0; i < tr.length; i++) {
-      td1=  tr[i].getElementsByTagName("td")[0];
-      td2=  tr[i].getElementsByTagName("td")[1];
-      td3=  tr[i].getElementsByTagName("td")[2];
-      td4=  tr[i].getElementsByTagName("td")[3];
+      td1 = tr[i].getElementsByTagName("td")[0];
+      td2 = tr[i].getElementsByTagName("td")[1];
+      td3 = tr[i].getElementsByTagName("td")[2];
+      td4 = tr[i].getElementsByTagName("td")[3];
 
 
       if (td1 || td2 || td3 || td4) {
@@ -45,7 +138,7 @@ export class ListUsersComponent implements OnInit {
         let four = txtValue4.toUpperCase().indexOf(filter);
 
 
-        if ((one > -1)|| (two > -1) ||(three > -1) ||(four > -1)) {
+        if ((one > -1) || (two > -1) || (three > -1) || (four > -1)) {
           tr[i].style.display = "";
         } else {
           tr[i].style.display = "none";
@@ -53,6 +146,7 @@ export class ListUsersComponent implements OnInit {
       }
     }
   }
+  /// sorting contents of tables
   sortTable(n) {
     let table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
     table = document.getElementById("myTable");
@@ -90,18 +184,32 @@ export class ListUsersComponent implements OnInit {
     }
   }
 
+  /// fetch users from DB
   bringAllUsers() {
     this.list.list().subscribe(
       (res) => {
         this.fetchedUsers = res.data;
       },
-      (err)=>{
-          document.getElementsByTagName("body")[0].innerHTML = "<h1>ERROR 500 - False Token</h1>";
+      (err) => {
+        document.getElementsByTagName("body")[0].innerHTML = "<h1>ERROR 500 - False Token</h1>";
       }
     )
   }
-
-
+  /// placeholder data Fill And Clear
+  placeholderData(userID) {
+    $("#exampleModal").modal('show');
+    console.log(userID);
+    // ASSIGNING FETCHED DATA TO PLACEHOLDER
+    this.fetchedUsers.forEach(user => {
+      if (user.userid == userID) {
+        this.placeholder = { email: user.email, userID: user.userid, name: user.name, phone: user.phone, option: user.option, id: user.id }
+      }
+    });
+  }
+  clearPlaceHolder() {
+    this.placeholder = {}
+    $("#exampleModal").modal('hide');
+  }
   ///  CSV EXPORT IS WORKING HERE
   exportCSV() {
     this.alert = true;

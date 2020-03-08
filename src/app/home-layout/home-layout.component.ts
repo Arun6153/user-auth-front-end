@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute , Router ,ParamMap} from '@angular/router';
-
 
 @Component({
   selector: 'app-home-layout',
@@ -10,40 +8,22 @@ import { ActivatedRoute , Router ,ParamMap} from '@angular/router';
 
 export class HomeLayoutComponent implements OnInit {
   // GLOBAL VARIABLE
-  one: boolean;
-  two: boolean;
-  three: boolean;
-  name:string;
 
-  constructor(private route:ActivatedRoute, private router:Router) { }
+  name: string;
+  perm: string;
+  constructor() { }
 
   ngOnInit(): void {
-    this.one = true;
-    this.two = false;
-    this.three = false;
-    this.name="Arun";
-    this.router.navigate(['home'],{relativeTo:this.route})
+    const data= JSON.parse(localStorage.getItem("userToken"));
+    this.name = data.name;
+    this.perm = data.permission;
   }
 
   // CONDITIONAL RENDERING FOR SIDE NAV
-  switch(pipe) {
-    if (pipe == 1) {
-      this.one = true; this.two = false; this.three = false;
-      this.router.navigate(['list'],{relativeTo:this.route})
-    }
-    else if (pipe == 2) {
-      this.one = false; this.two = true; this.three = false;
-      this.router.navigate(['edit'],{relativeTo:this.route})
-    }
-    else if (pipe == 3) {
-      this.one = false; this.two = false; this.three = true;
-      this.router.navigate(['import'],{relativeTo:this.route})
-    }
-    else if (pipe == 4) {
-      // LOGOUT
-      localStorage.removeItem('tokenUser');
-      window.location.replace('http://127.0.0.1:4200/');
-    }
+  GetOutBro() {
+    console.log("some thing is fishy.")
+    localStorage.removeItem("userToken");
+    window.location.replace('http://127.0.0.1:4200/');
   }
 
   // FUNCTIONS CONTROLING OPEN & CLOSING OF SIDENAV

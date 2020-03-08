@@ -44,16 +44,12 @@
         <label class="form-check-label" for="1">Read</label>
     </div>
     <div class="form-check form-check-inline">
-        <input required class="form-check-input" id="2" type="radio" [(ngModel)]="userData.option" name="radio-op" value="Write">
-        <label class="form-check-label" for="2">Write</label>
+        <input required class="form-check-input" id="2" type="radio" [(ngModel)]="userData.option" name="radio-op" value="Normal">
+        <label class="form-check-label" for="2">Normal</label>
     </div>
     <div class="form-check form-check-inline">
-        <input required class="form-check-input" id="3" type="radio" [(ngModel)]="userData.option" name="radio-op" value="Report">
-        <label class="form-check-label" for="3">Report</label>
-    </div>
-    <div class="form-check form-check-inline">
-        <input required class="form-check-input" id="4" type="radio" [(ngModel)]="userData.option" name="radio-op" value="All">
-        <label class="form-check-label" for="4">All</label>
+        <input required class="form-check-input" id="3" type="radio" [(ngModel)]="userData.option" name="radio-op" value="Sudo-User">
+        <label class="form-check-label" for="3">Sudo-User</label>
     </div>
     <p></p>
   <button type="submit" class="btn btn-primary btn-block" (click)="verifyFields()">Submit</button>

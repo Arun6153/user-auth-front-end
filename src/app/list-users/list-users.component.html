@@ -1,5 +1,7 @@
+<app-home-layout></app-home-layout>
+<div id="main">
 <div class="container">
-<input id="myInput" style="margin-top:50px" (keyup)="myFunction($event)" type="text" class="form-control" placeholder="Search about user from table content..." >
+<input name="" id="myInput" style="margin-top:50px" (keyup)="myFunction($event)" type="text" class="form-control" placeholder="Search about user from table content..." >
 <p></p>
 <table class="table" id="myTable">
   <thead class="thead-dark">
@@ -8,14 +10,16 @@
       <th (click)="sortTable(1)" scope="col">USER NAME</th>
       <th (click)="sortTable(2)" scope="col">EMAIL</th>
       <th (click)="sortTable(3)" scope="col">PHONE NO.</th>
+      <th *ngIf="perm.superUser" scope="col">OPERATION</th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let user of fetchedUsers">
+    <tr class="tupple-user" *ngFor="let user of fetchedUsers">
       <td scope="row">{{user.userid}}</td>
       <td>{{user.name}}</td>
       <td>{{user.email}}</td>
       <td>{{user.phone}}</td>
+      <td *ngIf="perm.superUser"><button type="button" data-toggle="modal" class="btn btn-success" (click)="placeholderData([user.userid])" >EDIT</button></td>
     </tr>
   </tbody>
 </table>
@@ -29,3 +33,60 @@
 </div>
 </div>
 </div>
+</div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">EDIT DETAILS:</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <form #EditUserFromUsers="ngForm">
+        <div class="form-group">
+          <label for="email">Email address</label>
+          <input name="email" required type="email" class="form-control" [(ngModel)]="placeholder.email" value={{placeholder.email}} id="email">
+          </div>
+
+        <div class="form-group">
+                <div class="row">
+                                <div class="col">
+                                                <label for="user-id">User ID</label>
+                                                <input name="userid" required type="text" class="form-control" [(ngModel)]="placeholder.userID" value={{placeholder.userID}} id="user-id">
+                                </div>
+                                <div class="col">
+                                                <label for="name">Name</label>
+                                                <input name="name" required type="text" class="form-control" [(ngModel)]="placeholder.name" value={{placeholder.name}} id="name">
+                                </div>
+                </div>
+                </div>
+
+        <div class="form-group">
+                <label for="phone">Phone no.</label>
+                <input name="phone" type="tel" class="form-control" [(ngModel)]="placeholder.phone" value={{placeholder.phone}} id="phone">
+        </div>
+
+                <div class="form-check form-check-inline">
+                    <input required class="form-check-input" id="1" type="radio" [(ngModel)]="placeholder.option" name="radio-op" value="Read">
+                    <label class="form-check-label" for="1">Read</label>
+                </div>
+                <div class="form-check form-check-inline">
+                                <input checked required class="form-check-input" id="2" type="radio" [(ngModel)]="placeholder.option" name="radio-op" value="Normal">
+                                <label class="form-check-label" for="2">Normal</label>
+                </div>
+                <div class="form-check form-check-inline">
+                                <input required class="form-check-input" id="3" type="radio" [(ngModel)]="placeholder.option" name="radio-op" value="Sudo-User">
+                                <label class="form-check-label" for="3">Sudo-User</label>
+                </div>
+                <p></p>
+                <button type="button" [disabled]="!EditUserFromUsers.valid" (click)="submitData()" class="btn btn-primary btn-block" >SAVE DETAILS</button>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-block" (click)="clearPlaceHolder()">Close</button>
+      </div>
+    </div>
+  </div>

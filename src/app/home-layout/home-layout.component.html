@@ -1,17 +1,11 @@
 <nav class="navbar navbar-light bg-primary fixed-top">
   <a class="mb-0 h1 navbar-brand" (click)="openNav()">☰ Menu</a>
-  <span class="name-header">Hey! Welcome {{name}}</span>
+  <span class="name-header">Hey, Welcome {{name}} | <small>[{{perm}}]</small></span>
 </nav>
 <div id="mySidebar" class="sidebar">
   <a href="javascript:void(0)" class="closebtn" (click)="closeNav()">×</a>
-  <a (click)="switch(1)" >List Users</a>
-  <a (click)="switch(2)" >Edit Users</a>
-  <a (click)="switch(3)" >Import Data</a>
-  <a (click)="switch(4)" >Logout</a>
-</div>
-<div id="main"> 
-  <h2>Collapsed Sidebar</h2>
-  <list-users-component *ngIf="one"></list-users-component>
-  <edit-users-component *ngIf="two"></edit-users-component>
-  <import-data-compoint *ngIf="three"></import-data-compoint>
+  <a routerLink="/dashboard/list" >List Users</a>
+  <a routerLink="/dashboard/edit" >Edit Users</a>
+  <a routerLink="/dashboard/import" >Import Data</a>
+  <a (click)="GetOutBro()" >Logout</a>
 </div>

@@ -1,70 +1,44 @@
+<app-home-layout></app-home-layout>
+<div id="main">
 <div class="container">
-<table class="table">
-  <thead class="thead-dark">
-    <tr>
-      <th scope="col">USER ID</th>
-      <th scope="col">USER NAME</th>
-      <th scope="col">EMAIL</th>
-      <th scope="col">PHONE NO.</th>
-      <th scope="col">OPERATION</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr class="tupple-user" *ngFor="let user of fetchedUsers">
-      <td scope="row">{{user.userid}}</td>
-      <td>{{user.name}}</td>
-      <td>{{user.email}}</td>
-      <td>{{user.phone}}</td>
-      <td><button type="button" data-toggle="modal" class="btn btn-success" (click)="placeholderData([user.userid])">EDIT</button></td>
-    </tr>
-  </tbody>
-</table>
-<hr>
-</div>
+  
+<div class="div-login-form">
+<form #EditCurrentUser="ngForm" >
+  <div class="alert alert-primary center" role="alert">
+     EDIT YOUR CREDENTIALS
+  </div>
 
-
-
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="form-group">
+  <div class="form-group">
     <label for="email">Email address</label>
-    <input required required type="email" class="form-control" [(ngModel)]="placeholder.email" value={{placeholder.email}} id="email">
+    <input required type="email" name="email" class="form-control" [(ngModel)]="placeholder.email" placeholder="Email" id="email">
   </div>
 
   <div class="form-group">
     <div class="row">
         <div class="col">
             <label for="user-id">User ID</label>
-            <input required type="text" class="form-control" [(ngModel)]="placeholder.userID" value={{placeholder.userID}} id="user-id">
+            <input required type="text" name="userid" class="form-control" [(ngModel)]="placeholder.userID" placeholder="User Id" id="user-id">
         </div>
         <div class="col">
             <label for="name">Name</label>
-            <input required type="text" class="form-control" [(ngModel)]="placeholder.name" value={{placeholder.name}} id="name">
+            <input required type="text" name="name" class="form-control" [(ngModel)]="placeholder.name" placeholder="Name" id="name">
         </div>
     </div>
     </div>
   
   <div class="form-group">
     <label for="phone">Phone no.</label>
-    <input type="tel" class="form-control" [(ngModel)]="placeholder.phone" value={{placeholder.phone}} id="phone">
+    <input type="tel" class="form-control" min="10" max="10" name="phone" [(ngModel)]="placeholder.phone" placeholder="Enter your phone no." id="phone">
   </div>
 
   <div class="form-group">
     <label for="password">Password</label>
     <div class="row">
     <div class="col">
-      <input required id="password" type="password" class="form-control" [(ngModel)]="placeholder.password" value={{placeholder.password}}>
+      <input required id="password" name="password" type="password" class="form-control" [(ngModel)]="placeholder.password" placeholder="Password">
     </div>
     <div class="col">
-      <input required id="cPassword" type="password" class="form-control" [(ngModel)]="cPassword" >
+      <input required id="cPassword" name="cpassword" type="password" class="form-control" [(ngModel)]="cPassword" placeholder="Confirm Password">
     </div>
   </div>
   </div>
@@ -73,24 +47,16 @@
         <label class="form-check-label" for="1">Read</label>
     </div>
     <div class="form-check form-check-inline">
-        <input required class="form-check-input" id="2" type="radio" [(ngModel)]="placeholder.option" name="radio-op" value="Write">
-        <label class="form-check-label" for="2">Write</label>
+        <input required class="form-check-input" id="2" type="radio" [(ngModel)]="placeholder.option" name="radio-op" value="Normal">
+        <label class="form-check-label" for="2">Normal</label>
     </div>
     <div class="form-check form-check-inline">
-        <input required class="form-check-input" id="3" type="radio" [(ngModel)]="placeholder.option" name="radio-op" value="Report">
-        <label class="form-check-label" for="3">Report</label>
-    </div>
-    <div class="form-check form-check-inline">
-        <input required class="form-check-input" id="4" type="radio" [(ngModel)]="placeholder.option" name="radio-op" value="All">
-        <label class="form-check-label" for="4">All</label>
+        <input required class="form-check-input" id="3" type="radio" [(ngModel)]="placeholder.option" name="radio-op" value="Sudo-User">
+        <label class="form-check-label" for="3">Sudo-User</label>
     </div>
     <p></p>
-    <button type="submit" class="btn btn-primary btn-block" (click)="verifyFields()">Submit</button>
-    
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary btn-block" (click)="clearPlaceHolder()">Close</button>
-      </div>
-    </div>
-  </div>
+  <button [disabled]="!EditCurrentUser.valid" type="button" class="btn btn-primary btn-block" (click)="checkDetails()" >Save</button>
+</form>
+</div>
+</div>
 </div>

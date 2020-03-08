@@ -22,6 +22,7 @@ def login(request):
         password = values['password']
         try:
             user = User.objects.get(email=f'{email}')
+            print(user)
             if check_password(password, user.password):
                 # MAKING PAYLOAD FOR TOKEN
                 payload = {
@@ -33,7 +34,9 @@ def login(request):
                 data = {
                     'status': '200',
                     'token': f'{jwt_token}',
-                    'email': f'{user.email}'
+                    'email': f'{email}',
+                    'name': f'{user.name}',
+                    'permission': f'{user.optionPerm}',
                 }
                 return JsonResponse(data)
             else:
@@ -73,7 +76,7 @@ def csvExport(request):
     if request.method == "GET":
         users = User.objects.all()
         res = HttpResponse(content_type="text/csv")
-        res['Content-Deposition'] = 'attachment; filename="edit_users.csv"'
+        res['Content-Disposition'] = 'attachment; filename="edit_users.csv"'
         writer = csv.writer(res, delimiter=',')
         writer.writerow(
             ['ID', 'Email', 'UserId', 'Name', 'Phone', 'Permission'])
@@ -106,10 +109,10 @@ def csvImport(request):
                 data.phone = column[4]
                 data.optionPerm = column[5]
                 data.save()
-            return HttpResponse(status=201)
+            return HttpResponse(status=200)
         except Exception as e:
             print(e)
-            return HttpResponseServerError("Server error")
+            return HttpResponseBadRequest("Server error")
     return HttpResponseBadRequest("EITHER FILE is'nt UPLOADING OR REQUEST IS BAD")
 ###################################################################################################
 
@@ -134,8 +137,15 @@ def getUsersList(request):
 def verifyEmail(request):
     if request.method == 'POST':
         values = json.loads(request.body.decode('utf-8'))
+        email = User.objects.get(id=values['id'])
+        if email.email == values['email']:
+            print(email.email+"    old")
+            print(values["email"]+"    new")
+            print("how")
+            return HttpResponse(200)
         try:
             data = User.objects.get(email=values['email'])
+
         except Exception as e:
             return HttpResponse(200)
         return HttpResponseBadRequest("A user is already registerd with this email id")
@@ -147,10 +157,19 @@ def verifyEmail(request):
 def verifyUserID(request):
     if request.method == 'POST':
         values = json.loads(request.body.decode('utf-8'))
+        userid = User.objects.get(id=values['id'])
+        print(values)
+        if userid.userid == values['userID']:
+            print("how")
+            return HttpResponse(200)
         try:
+            print(userid.userid+"    old")
+            print(values["userID"]+"    new")
             data = User.objects.get(userid=values['userID'])
+            
         except Exception as e:
             return HttpResponse(200)
+        
         return HttpResponseBadRequest("This userID is already taken")
     else:
         return HttpResponseBadRequest("Request not allowed")
@@ -165,9 +184,8 @@ def editUser(request):
             data.name = values['name']
             data.email = values['email']
             data.userid = values['userID']
-            data.passRaw = values['password']
             data.phone = values['phone']
-            data.option = values['option']
+            data.optionPerm = values['option']
             data.save()
         except Exception as e:
             return HttpResponseBadRequest("This userID is already taken")

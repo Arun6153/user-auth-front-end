@@ -30,3 +30,8 @@ img{
     margin: auto;
     width:600px;
 }
+#main {
+    transition: margin-left .5s;
+    padding: 16px;
+    padding-top:10vh ;
+  }

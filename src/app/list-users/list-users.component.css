@@ -1,6 +1,9 @@
 .footer {
   text-align: center;
 }
+.form-control,.alert,.btn{
+  border-radius: 0px;
+}
 .table{
   box-shadow: 0px 0px 10px 2px #a1a1a1;
   max-height: 70vh;
@@ -8,6 +11,22 @@
 }
 table.sortable th:not(.sorttable_sorted):not(.sorttable_sorted_reverse):not(.sorttable_nosort):after {
   content: " \25B4\25BE"
+}
+
+.tupple-user:hover{
+  transition: 0.3s;
+}
+.tupple-user:hover{
+  background-color:#acacac;
+  padding: 10px;
+  transition: 0.3s ease-out;
+}
+
+input.ng-valid{
+  border-left: 5px solid #42a948;
+}
+input.ng-invalid{
+  border-left: 5px solid #aa2513;
 }
 #myInput{
   margin: auto;
@@ -19,4 +38,10 @@ table.sortable th:not(.sorttable_sorted):not(.sorttable_sorted_reverse):not(.sor
   height: 50px;
   outline: 6px solid #007bff;
   transition: 0.2s;;
+}
+#main {
+  transition: margin-left .5s;
+  padding: 16px;
+  padding-top:10vh ;
+
 }

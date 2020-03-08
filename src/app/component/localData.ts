@@ -50,3 +50,17 @@ export class TimeData {
         localStorage.removeItem('timeLeft');
     }
 }
+export class User{
+    private data:any
+    constructor(){
+        this.data = JSON.parse(localStorage.getItem("userToken"));
+    }
+    perm():string
+    {
+        return this.data.permission;
+    }
+    name():string
+    {
+        return this.data.name;
+    }
+}

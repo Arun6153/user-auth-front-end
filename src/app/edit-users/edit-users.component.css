@@ -1,17 +1,43 @@
-.tupple-user:hover{
-    transition: 0.3s;
+#main {
+  transition: margin-left .5s;
+  padding: 16px;
+  padding-top:10vh ;
 }
-.tupple-user:hover{
-    background-color:#acacac;
-    padding: 2px;
-    transition: 0.3s ease-out;
+
+.div-login-form
+{
+    width: 500px;
+    position: relative;
+    margin: auto;
 }
-.table{
-  box-shadow: 0px 0px 10px 2px #a1a1a1;
-  max-height: 70vh;
-  overflow:auto;
-  margin-top: 70px;
+.div-login-form form{
+    box-shadow: 0px 0px 5px 1px #444444;
+    padding: 20px 20px;
+}
+.center{
+    text-align: center;
 }
 .form-control,.alert,.btn{
-  border-radius: 0px;
+    border-radius: 0px;
 }
+form{
+    position: relative;
+    background-color: white;
+    z-index: 2;
+}
+
+input.ng-valid{
+    border-left: 5px solid #42a948;
+}
+input.ng-invalid{
+    border-left: 5px solid #aa2513;
+}
+@media only screen and (max-width: 600px) {
+    img{
+       display: none;
+    }
+    form{
+        right:auto;
+        margin: auto 20px;
+    }
+  }

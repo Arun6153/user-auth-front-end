@@ -48,11 +48,13 @@ export class LoginComponent implements OnInit {
         let store = {
           token: res.token,
           email: res.email,
+          name:res.name,
+          permission:res.permission
         }
         this.storage.clearData();
         this.timeData.clearData();
         this.toggleBool(false);
-        localStorage.setItem('userToken', JSON.stringify(store));
+        localStorage.setItem("userToken", JSON.stringify(store));
         window.location.replace('http://localhost:4200/dashboard/');
       },
       (error) => {

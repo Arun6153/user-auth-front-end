@@ -17,13 +17,8 @@ const routes: Routes = [
   },
   {
     path: "dashboard",
-    component: HomeLayoutComponent,
-  },
-  {
-    path: "dashboard/:path",
-    component: HomeLayoutComponent,
     children :[
-      { path:'home', component: ListUsersComponent },
+      { path:'', component: ListUsersComponent },
       { path:'list', component: ListUsersComponent },
       { path:'edit', component: EditUsersComponent },
       { path:'import', component: ImportDataComponent },
