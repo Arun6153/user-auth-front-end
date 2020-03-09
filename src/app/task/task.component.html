@@ -1,0 +1,111 @@
+<app-home-layout></app-home-layout>
+<div id="main">
+<div class="container">
+<div style="margin-top:50px">
+<button type="button" (click)="release()" class="btn btn-outline-dark">Release Threads</button> |
+<button type="button" (click)="assignToSelf()" class="btn btn-outline-dark">Assign To Self</button><span> | </span>
+<button type="button" (click)="assignToOthers()" class="btn btn-outline-dark" data-toggle="modal" data-target="#assignToOthers">Assign To Others</button>  
+</div>
+<p></p>
+<table class="table" id="myTable">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">SELECT</th>
+      <th scope="col">TASK ID</th>
+      <th scope="col">DESCRIPTION</th>
+      <th scope="col">ACTIVE STATUS</th>
+      <th scope="col">OWNER</th>
+      <th scope="col">OPERATION</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="tupple-user" >
+      <td scope="row" style="padding:18px">
+        <input type="checkbox" id="inlineCheckbox1" value="option1">
+      </td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td><button type="button" data-toggle="modal" data-target="#placeholderForTaskDetails" data-toggle="modal" class="btn btn-info" >OPEN</button></td>
+    </tr>
+  </tbody>
+</table>
+
+</div>
+</div>
+
+<div class="modal fade" id="assignToOthers" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Assign tasks To a member:</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <label for="select_member">Select among users</label>
+        <select class="form-control" id="select_member">
+          <option>1</option>
+          <option>2</option>
+          <option>3</option>
+          <option>4</option>
+          <option>5</option>
+        </select>
+      </div>
+      <div class="modal-footer">
+        <button type="button" (click)="submit_assigned_task()" class="btn btn-primary">Assign</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="placeholderForTaskDetails" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Assign tasks To a member:</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group row">
+            <label for="id" class="col-sm-2 col-form-label">TaskID</label>
+            <div class="col-sm-10">
+                <input type="text" readonly class="form-control-plaintext" id="id" value="">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="description" class="col-sm-2 col-form-label">Description</label>
+            <div class="col-sm-10">
+                <input type="text" readonly class="form-control-plaintext" id="description" value="">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="status" class="col-sm-2 col-form-label">Status</label>
+            <div class="col-sm-10">
+                <input type="text" readonly class="form-control-plaintext" id="status" value="">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="Owner" class="col-sm-2 col-form-label">Owner</label>
+            <div class="col-sm-10">
+                <input type="text" readonly class="form-control-plaintext" id="Owner" value="">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="Type" class="col-sm-2 col-form-label">Type</label>
+            <div class="col-sm-10">
+                <input type="text" readonly class="form-control-plaintext" id="Type" value="">
+            </div>
+        </div>
+      
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,6 +1,14 @@
-<nav class="navbar navbar-light bg-primary fixed-top">
-  <a class="mb-0 h1 navbar-brand" (click)="openNav()">☰ Menu</a>
-  <span class="name-header">Hey, Welcome {{name}} | <small>[{{perm}}]</small></span>
+<nav class="navbar navbar-expand-lg navbar-light bg-primary fixed-top">
+  <a class="mb-0 h1 navbar-brand" style="cursor:pointer" (click)="openNav()">☰ Menu</a>
+    <div class="collapse navbar-collapse" id="navbarText">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item"> <a class="nav-link active" routerLink="/dashboard/task-threads" style="cursor:pointer"><b>Task Threads</b></a></li>
+      <li class="nav-item"> <a class="nav-link active" data-toggle="modal" data-target="#createTask" style="cursor:pointer"><b>Create Task</b></a></li>
+    </ul>
+    <span class="navbar-text" style="color:black">
+      Hey, Welcome <b>{{name}}</b> | [{{perm}}]
+    </span>
+    </div>
 </nav>
 <div id="mySidebar" class="sidebar">
   <a href="javascript:void(0)" class="closebtn" (click)="closeNav()">×</a>
@@ -8,4 +16,33 @@
   <a routerLink="/dashboard/edit" >Edit Users</a>
   <a routerLink="/dashboard/import" >Import Data</a>
   <a (click)="GetOutBro()" >Logout</a>
+</div>
+
+<div class="modal fade" id="createTask" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Create New Task</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <form #isValid="ngForm">
+        <div class="form-group">
+          <label for="description">Description</label>
+          <input required name="description"  type="text" class="form-control" [(ngModel)]="task.description" id="description" placeholder="Enter the description of task...." rows="4">
+        </div>
+        <div class="form-group">
+          <label for="type">Type</label>
+          <input name="type" required type="text" class="form-control" [(ngModel)]="task.type" id="type" placeholder="Type of the task">
+        </div>
+      <button [disabled]="!isValid.valid" type="button" class="btn btn-primary">Save changes</button>
+      </form>
+      </div>
+      <div class="modal-footer">
+        <button  type="button" (click)="submitData()" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
 </div>

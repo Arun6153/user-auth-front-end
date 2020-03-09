@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TaskService } from '../component/task.service';
 
 @Component({
   selector: 'app-home-layout',
@@ -11,14 +12,29 @@ export class HomeLayoutComponent implements OnInit {
 
   name: string;
   perm: string;
+  task:any;
   constructor() { }
 
   ngOnInit(): void {
     const data= JSON.parse(localStorage.getItem("userToken"));
     this.name = data.name;
     this.perm = data.permission;
+    this.task = {
+      description:"",
+      type:""
+    }
   }
-
+  submitData()
+  {
+    this.task.newTask(this.task).subscribe(
+      (res)=>{
+        console.log("Yep its there.")
+      }
+      ,(err)=>{
+        console.log(err.error)
+      }
+    )
+  }
   // CONDITIONAL RENDERING FOR SIDE NAV
   GetOutBro() {
     console.log("some thing is fishy.")

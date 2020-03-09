@@ -12,6 +12,7 @@ import { HomeLayoutComponent } from './home-layout/home-layout.component';
 import { ListUsersComponent } from './list-users/list-users.component';
 import { EditUsersComponent } from './edit-users/edit-users.component';
 import { ImportDataComponent } from './import-data/import-data.component';
+import { TaskComponent } from './task/task.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { ImportDataComponent } from './import-data/import-data.component';
     HomeLayoutComponent,
     ListUsersComponent,
     EditUsersComponent,
-    ImportDataComponent
+    ImportDataComponent,
+    TaskComponent,
   ],
   imports: [
     BrowserModule,

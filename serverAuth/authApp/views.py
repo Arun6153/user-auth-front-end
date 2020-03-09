@@ -22,12 +22,14 @@ def login(request):
         password = values['password']
         try:
             user = User.objects.get(email=f'{email}')
-            print(user)
+            print(user.password)
+            print(check_password(password, user.password))
             if check_password(password, user.password):
                 # MAKING PAYLOAD FOR TOKEN
                 payload = {
                     'email': user.email,
                 }
+                print("present")
                 # JWT_TOKEN HAS NEWLY CREATED TOKEN OF THE USER
                 jwt_token = jwt.encode(
                     payload, "WANNA_BREACH", algorithm='HS256',)

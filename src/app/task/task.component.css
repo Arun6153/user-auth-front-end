@@ -1,0 +1,24 @@
+#main {
+  transition: margin-left .5s;
+  padding: 16px;
+  padding-top: 10vh;
+}
+.table{
+  box-shadow: 0px 0px 10px 2px #a1a1a1;
+  max-height: 70vh;
+  overflow:auto;
+}
+.tupple-user:hover {
+  transition: 0.3s;
+}
+.tupple-user:hover {
+  background-color: #acacac;
+  padding: 10px;
+  transition: 0.3s ease-out;
+}
+.footer {
+  text-align: center;
+}
+.form-control,.alert,.btn{
+  border-radius: 0px;
+}
