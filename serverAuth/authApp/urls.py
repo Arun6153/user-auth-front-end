@@ -12,4 +12,5 @@ urlpatterns = [
     path('edit-user',views.editUser),
     path('user',views.sendUser),
     path('update-logged-user',views.updateLogged),
+    path('new-task',views.NewTask),
 ]

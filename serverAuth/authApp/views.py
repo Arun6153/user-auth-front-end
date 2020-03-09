@@ -1,7 +1,7 @@
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseNotFound, JsonResponse, HttpResponseNotAllowed
 from django.db import connection
-from .models import User
+from .models import User , Task , AssignedTask
 from django.contrib.auth.hashers import make_password, check_password
 import json
 import jwt
@@ -235,3 +235,18 @@ def updateLogged(request):
             print("exception")
             return HttpResponseBadRequest("Something went wrong.")
     return HttpResponseNotAllowed("Request not allowed to this server.")
+
+##################################################################################################
+
+### TASK QUERRIES
+@csrf_exempt
+def NewTask(request):
+    if request.method == 'POST':
+        values = json.loads(request.body.decode('UTF-8'))
+        description = values['description']
+        type = values['type']
+        task = Task(description=description, type=type, owner="NONE", status = False)
+        task.save()
+        return HttpResponse(200)
+    else:
+        return HttpResponseNotAllowed("something went wrong.")

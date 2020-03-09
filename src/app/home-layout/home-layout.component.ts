@@ -13,7 +13,7 @@ export class HomeLayoutComponent implements OnInit {
   name: string;
   perm: string;
   task:any;
-  constructor() { }
+  constructor(private tasks:TaskService) { }
 
   ngOnInit(): void {
     const data= JSON.parse(localStorage.getItem("userToken"));
@@ -26,7 +26,7 @@ export class HomeLayoutComponent implements OnInit {
   }
   submitData()
   {
-    this.task.newTask(this.task).subscribe(
+    this.tasks.newTask(this.task).subscribe(
       (res)=>{
         console.log("Yep its there.")
       }
