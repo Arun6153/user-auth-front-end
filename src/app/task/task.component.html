@@ -19,8 +19,8 @@
     </tr>
   </thead>
   <tbody>
-    <tr class="tupple-user" *ngFor="let task of tasks" >
-      <td scope="row" style="padding:18px"><input type="checkbox" id="{{task.id}}" value="option1"></td>
+    <tr class="tupple-user" *ngFor="let task of tasks; let i=index" >
+      <td scope="row" style="padding:18px"><input ngModel="" type="checkbox" id="{{task.id}}" value={{task.id}}></td>
       <td>{{task.id}}</td>
       <td>{{task.description}}</td>
       <td>{{task.status}}</td>
@@ -44,8 +44,8 @@
       </div>
       <div class="modal-body">
         <label for="select_member">Select among users</label>
-        <select [ngModel] = "selectedOp" class="form-control" id="select_member">
-          <option  *ngFor="let user of users" value="{{user.id}}">{{user.name}}, {{user.userid}}</option>
+        <select required [(ngModel)] = "selectedOp" class="form-control" id="select_member">
+          <option   *ngFor="let user of users" value="{{user.id}}">{{user.name}}, {{user.userid}}</option>
         </select>
       </div>
       <div class="modal-footer">

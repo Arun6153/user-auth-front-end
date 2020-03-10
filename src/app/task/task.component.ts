@@ -59,5 +59,20 @@ export class TaskComponent implements OnInit {
   submit_assigned_task() {
     console.log(this.selectedOp);
   }
-
+  maintainArray(i,id)
+  {
+    console.log(i+" "+id)
+  }
 }
+// onCheckboxChange(option, event) {
+//   if(event.target.checked) {
+//     this.checkedList.push(option.id);
+//   } else {
+//   for(var i=0 ; i < this.xyzlist.length; i++) {
+//     if(this.checkedList[i] == option.id) {
+//       this.checkedList.splice(i,1);
+//    }
+//  }
+// }
+// console.log(this.checkedList);
+// }

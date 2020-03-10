@@ -265,3 +265,34 @@ def GetTasksList(request):
             return HttpResponseNotAllowed("This request is'nt alowed")
     else:
         return HttpResponseBadRequest("Something went wrong server isnt responding")
+
+def GetAssignedTask(request,id):
+    if request.method == 'GET':
+        try:
+            token = request.headers['Authorization'].split("'")
+            email = checkJwt(token[1])
+            userTasks = AssignedTask.objects.all()
+            lists = userTasks.filter(user = id).values()
+            data={}
+            for task in lists:
+                data.setdefault(task.id, []).append(task)
+
+            return JsonResponse({"data":list(data)})
+        except Exception as e:
+            return HttpResponseNotAllowed("This request is'nt alowed")
+    else:
+        return HttpResponseBadRequest("Something went wrong server isnt responding")
+    
+@csrf_exempt
+def AssignTask(request,id):
+    if request.method == 'POST':
+        values = json.loads(request.body.decode('UTF-8'))
+        list = values['tasks']
+        for task in list:
+            task = AssignedTask(task=task, user=id)
+            task.save()
+        return HttpResponse(200)
+    else:
+        return HttpResponseNotAllowed("something went wrong.")
+
+    
