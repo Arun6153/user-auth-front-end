@@ -1,7 +1,7 @@
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseNotFound, JsonResponse, HttpResponseNotAllowed
 from django.db import connection
-from .models import User , Task , AssignedTask
+from .models import User, Task, AssignedTask
 from django.contrib.auth.hashers import make_password, check_password
 import json
 import jwt
@@ -245,8 +245,23 @@ def NewTask(request):
         values = json.loads(request.body.decode('UTF-8'))
         description = values['description']
         type = values['type']
-        task = Task(description=description, type=type, owner="NONE", status = False)
+        task = Task(description=description, type=type,
+                    owner="NONE", status=False)
         task.save()
         return HttpResponse(200)
     else:
         return HttpResponseNotAllowed("something went wrong.")
+
+
+def GetTasksList(request):
+    if request.method == 'GET':
+         try:
+            token = request.headers['Authorization'].split("'")
+            email = checkJwt(token[1])
+            task = Task.objects.all()
+            data = task.values()
+            return JsonResponse({'data':list(data)})
+         except Exception as e:
+            return HttpResponseNotAllowed("This request is'nt alowed")
+    else:
+        return HttpResponseBadRequest("Something went wrong server isnt responding")
