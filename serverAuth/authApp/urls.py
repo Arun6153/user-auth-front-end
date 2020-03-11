@@ -15,4 +15,5 @@ urlpatterns = [
     path('new-task',views.NewTask),
     path('tasks',views.GetTasksList),
     path('assigned-tasks/<int:id>',views.GetAssignedTask),
+    path('assign-tasks/<int:id>',views.AssignTask),
 ]
