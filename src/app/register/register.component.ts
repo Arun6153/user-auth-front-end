@@ -13,6 +13,7 @@ export class RegisterComponent implements OnInit {
   userData;
   cPassword;
   errString;
+  data: any;
   constructor(private register: RegisterService) { }
 
   ngOnInit(): void {
@@ -24,6 +25,10 @@ export class RegisterComponent implements OnInit {
       password: "",
       option: "",
     }
+    this.data = {
+      email: null,
+      userid: null,
+    }
     this.cPassword = ""
   }
 
@@ -31,62 +36,58 @@ export class RegisterComponent implements OnInit {
 
   verifyFields() {
     let user = this.userData;
-    if (!this.checkEmailPresent(user.email) && !this.checkUserIDPresent(user.userID)) {
-      console.log("in phone");
-      if (user.phone.length == 10 || user.phone.length == 0) {
-        if ((this.cPassword == user.password && user.password.length > 0)) {
-          if ( $("input[name='radio-op']:checked").val()) {
-            this.registerUser();
+    this.checkEmailPresent(user.email)
+    this.checkUserIDPresent(user.userID)
+    setTimeout(cal => {
+      if (this.data.email) {
+        if (this.data.userid) {
+          if (user.phone.length == 10 || user.phone.length == 0) {
+            if ((this.cPassword == user.password && user.password.length > 0)) {
+              if ($("input[name='radio-op']:checked").val()) {
+                this.registerUser();
+              }
+              else alert("select any one permission.")
+            }
+            else alert("Your password did'nt matches.")
           }
-          else alert("select any one permission.")
+          else alert("Either add phone no or leave it.")
         }
-        else alert("Your password did'nt matches.")
       }
-      else alert("Either add phone no or leave it.")
-    }
+    })
   }
 
-  checkEmailPresent(email): boolean {
-    let invert = false;
-    if (this.ValidateEmail(email)) {
-      this.register.checkEmail({ email: email }).subscribe(
-        (res) => {
-          invert= false;
-        },
-        err => {
-          alert(err.error)
-          invert = true;
-        }
-      )
-      return invert;
-    }
-    else alert("Your email field is empty.")
-    return true;
+  checkEmailPresent(email) {
+
+    // this.register.checkEmail({ "email": email }).subscribe(
+    //   (res) => {
+        this.data.email = true;
+      // },
+      // err => {
+      //   alert(err.error)
+      //   this.data.email = false;
+      // }
+    // )
   }
-  ValidateEmail(mail) {
-    if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail)) {
-      return (true)
-    }
-    alert("You have entered an invalid email address!")
-    return (false)
-  }
-  checkUserIDPresent(userID): boolean {
-    let invert = false;
-    if (userID != "") {
-      this.register.checkUserID({ userID: userID }).subscribe(
-        (res) => {
-          invert = false;
-        },
-        err => {
-          alert(err.error)
-          invert = true;
-        }
-      );
-      console.log()
-      return invert;
-    }
-    else alert("Your UserID field is empty.")
-    return true;
+  // ValidateEmail(mail) {
+  //   if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail)) {
+  //     return (true)
+  //   }
+  //   alert("You have entered an invalid email address!")
+  //   return (false)
+  // }
+
+  checkUserIDPresent(userID) {
+    // if (userID != "") {
+    //   this.register.checkUserID({ "userID": userID }).subscribe(
+    //     (res) => {
+          this.data.userid = true;
+    //     },
+    //     err => {
+    //       alert(err.error)
+    //       this.data.userid = false;
+    //     }
+    //   );
+    // }
   }
   // FOR VALIDATION OR SUBMIT DATA
   registerUser() {

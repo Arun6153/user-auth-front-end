@@ -4,55 +4,56 @@
   <div class="alert alert-primary center" role="alert">
      REGISTER
   </div>
-
+<form #register="ngForm">
   <div class="form-group">
     <label for="email">Email address</label>
-    <input required required type="email" class="form-control" [(ngModel)]="userData.email" placeholder="Email" id="email">
+    <input name="email" required type="email" class="form-control" [(ngModel)]="userData.email" placeholder="Email" id="email">
   </div>
 
   <div class="form-group">
     <div class="row">
         <div class="col">
             <label for="user-id">User ID</label>
-            <input required type="text" class="form-control" [(ngModel)]="userData.userID" placeholder="User Id" id="user-id">
+            <input name="userid" required type="text" class="form-control" [(ngModel)]="userData.userID" placeholder="User Id" id="user-id">
         </div>
         <div class="col">
             <label for="name">Name</label>
-            <input required type="text" class="form-control" [(ngModel)]="userData.name" placeholder="Name" id="name">
+            <input name="name" required type="text" class="form-control" [(ngModel)]="userData.name" placeholder="Name" id="name">
         </div>
     </div>
     </div>
   
   <div class="form-group">
     <label for="phone">Phone no.</label>
-    <input type="tel" class="form-control" [(ngModel)]="userData.phone" placeholder="Enter your phone no." id="phone">
+    <input name="phone" type="tel" class="form-control" [(ngModel)]="userData.phone" placeholder="Enter your phone no." id="phone">
   </div>
 
   <div class="form-group">
     <label for="password">Password</label>
     <div class="row">
     <div class="col">
-      <input required id="password" type="password" class="form-control" [(ngModel)]="userData.password" placeholder="Password">
+      <input name="password" required id="password" type="password" class="form-control" [(ngModel)]="userData.password" placeholder="Password">
     </div>
     <div class="col">
-      <input required id="cPassword" type="password" class="form-control" [(ngModel)]="cPassword" placeholder="Confirm Password">
+      <input name="cPassword" required id="cPassword" type="password" class="form-control" [(ngModel)]="cPassword" placeholder="Confirm Password">
     </div>
   </div>
   </div>
     <div class="form-check form-check-inline">
-        <input required class="form-check-input" id="1" type="radio" [(ngModel)]="userData.option" name="radio-op" value="Read">
-        <label class="form-check-label" for="1">Read</label>
+        <input name="" required class="form-check-input" id="1" type="radio" [(ngModel)]="userData.option" name="radio-op" value="Read">
+        <label required class="form-check-label" for="1">Read</label>
     </div>
     <div class="form-check form-check-inline">
-        <input required class="form-check-input" id="2" type="radio" [(ngModel)]="userData.option" name="radio-op" value="Normal">
+        <input required name="" required class="form-check-input" id="2" type="radio" [(ngModel)]="userData.option" name="radio-op" value="Normal">
         <label class="form-check-label" for="2">Normal</label>
     </div>
     <div class="form-check form-check-inline">
-        <input required class="form-check-input" id="3" type="radio" [(ngModel)]="userData.option" name="radio-op" value="Sudo-User">
+        <input required name="" required class="form-check-input" id="3" type="radio" [(ngModel)]="userData.option" name="radio-op" value="Sudo-User">
         <label class="form-check-label" for="3">Sudo-User</label>
     </div>
     <p></p>
-  <button type="submit" class="btn btn-primary btn-block" (click)="verifyFields()">Submit</button>
+  <button type="button" [disabled]="!register.valid" class="btn btn-primary btn-block" (click)="verifyFields()">Submit</button>
   <div  class="center"><a href="" routerLink="">Already a memeber? Click here to login.</a></div>
+</form>
 </div>
 </div>  

@@ -28,6 +28,12 @@ img{
     background-color: white;
     z-index: 2;
 }
+input.ng-valid{
+    border-left: 5px solid #42a948;
+}
+input.ng-invalid{
+    border-left: 5px solid #aa2513;
+}
 @media only screen and (max-width: 600px) {
     img{
        display: none;

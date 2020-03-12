@@ -268,9 +268,9 @@ def GetTasksList(request):
 
 def GetAssignedTask(request,id):
     if request.method == 'GET':
-        # try:
-            # token = request.headers['Authorization'].split("'")
-            # email = checkJwt(token[1])
+        try:
+            token = request.headers['Authorization'].split("'")
+            email = checkJwt(token[1])
             userTasks = AssignedTask.objects.all()
             lists = userTasks.filter(user = id).values()
             lists = list(lists)
@@ -282,8 +282,8 @@ def GetAssignedTask(request,id):
                     "name":user.description, "id":user.id, "owner":user.owner, "status":user.status
                 })
             return JsonResponse({"data":data})
-        # except Exception as e:
-        #     return HttpResponseNotAllowed("This request is'nt alowed")
+        except Exception as e:
+            return HttpResponseNotAllowed("This request is'nt alowed")
     else:
         return HttpResponseBadRequest("Something went wrong server isnt responding")
     
